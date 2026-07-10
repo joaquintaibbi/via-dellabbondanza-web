@@ -26,6 +26,8 @@ function loadCatalog(){
 
 function applyFilters(){
   const q = document.getElementById('search').value.toLowerCase();
+  const btn = document.getElementById('clear-search');
+btn.style.display = q ? 'block' : 'none';
   filtered = wines.filter(w => {
     const matchType = activeType==='all' || (w['Tipo']||'').toLowerCase()===activeType;
     const matchQ = !q ||
@@ -83,4 +85,10 @@ function wineCard(w){
 function renderError(){
   document.getElementById('catalog').innerHTML='<div class="empty-state"><h3>Error al cargar</h3><p>No se pudo conectar con el catálogo. Intentá de nuevo.</p></div>';
 }
-
+function clearSearch(){
+  const input = document.getElementById('search');
+  const btn = document.getElementById('clear-search');
+  input.value = '';
+  btn.style.display = 'none';
+  applyFilters();
+}
