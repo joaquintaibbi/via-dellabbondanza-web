@@ -64,7 +64,7 @@ function wineCard(w){
   const img = w['URL Foto'] ? `<img src="${w['URL Foto']}" alt="${w['Nombre']}" loading="lazy" onerror="this.parentNode.innerHTML='<span class=wine-img-placeholder>🍷</span>'"/>` : '<span class="wine-img-placeholder">🍷</span>';
   const id = w['ID'];
 
-  return `<div class="wine-card">
+  return `<div class="wine-card" onclick="openWineModal('${id}')">
     <div class="wine-img">
       ${img}
       ${agotado?'<span class="badge-agotado">Agotado</span>':''}
@@ -91,4 +91,38 @@ function clearSearch(){
   input.value = '';
   btn.style.display = 'none';
   applyFilters();
+}
+function openWineModal(id){
+  const w = wines.find(w => w['ID'] === id);
+  if(!w) return;
+
+  const precio = parseFloat(w['Precio (€)']||0).toFixed(2);
+  const agotado = w['Agotado']==='Sí';
+  const img = w['URL Foto'] ? `<img src="${w['URL Foto']}" alt="${w['Nombre']}"/>` : '🍷';
+
+  document.getElementById('modal-img').innerHTML = img;
+  const bodegaInfo = BODEGAS_INFO[w['Bodega']] || null;
+const descHTML = bodegaInfo
+  ? `<div class="modal-bodega-desc"><p>${bodegaInfo.descripcion}</p><span>📍 ${bodegaInfo.region} · Desde ${bodegaInfo.fundacion}</span></div>`
+  : '';
+document.getElementById('modal-bodega-desc').innerHTML = descHTML;
+  document.getElementById('modal-bodega').textContent = w['Bodega']||'';
+  document.getElementById('modal-name').textContent = w['Nombre']||'';
+  document.getElementById('modal-meta').textContent = `${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}`;
+  document.getElementById('modal-precio').textContent = `€${precio} / botella`;
+  document.getElementById('modal-qty').value = 1;
+  document.getElementById('modal-add').onclick = () => {
+    const qty = parseInt(document.getElementById('modal-qty').value)||1;
+    for(let i=0; i<qty; i++) addToCart(id);
+    closeWineModal();
+  };
+  document.getElementById('modal-add').disabled = agotado;
+
+  document.getElementById('wine-modal').classList.add('open');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeWineModal(){
+  document.getElementById('wine-modal').classList.remove('open');
+  document.getElementById('modal-overlay').classList.remove('open');
 }
