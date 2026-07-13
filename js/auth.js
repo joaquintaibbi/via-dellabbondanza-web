@@ -19,21 +19,32 @@ async function doLogin(){
 
   if(!email||!pass){ showErr(err,'Completá todos los campos.'); return; }
 
-  // Si hay webhook de n8n configurado, usarlo
-  if(N8N_LOGIN){
-    try{
-      const res = await fetch(N8N_LOGIN, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password:pass})});
-      const data = await res.json();
-      if(data.success && data.user){ setSession(data.user); startApp(data.user); return; }
-      showErr(err, data.error||'Email o contraseña incorrectos.'); return;
-    }catch(e){ console.warn('n8n no disponible, usando localStorage'); }
-  }
+  const { signInWithEmailAndPassword } = window.firebaseAuthFns;
+  const { doc, getDoc } = window.firebaseDbFns;
 
-  // Fallback: localStorage
-  const users = getUsers();
-  const user = users.find(u=>u.email===email&&u.password===pass);
-  if(!user){ showErr(err,'Email o contraseña incorrectos.'); return; }
-  setSession(user); startApp(user);
+  try{
+    const credential = await signInWithEmailAndPassword(window.firebaseAuth, email, pass);
+    const uid = credential.user.uid;
+
+    const userDoc = await getDoc(doc(window.firebaseDb, 'usuarios', uid));
+
+    if(!userDoc.exists()){
+      showErr(err,'No se encontraron los datos de tu cuenta. Contactanos.');
+      return;
+    }
+
+    const user = {...userDoc.data(), uid};
+    setSession(user);
+    startApp(user);
+
+  }catch(e){
+    if(e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
+      showErr(err,'Email o contraseña incorrectos.');
+    }else{
+      showErr(err,'Error al iniciar sesión. Intentá de nuevo.');
+      console.error('Error en login:', e);
+    }
+  }
 }
 
 function isValidPartitaIva(piva){
@@ -69,33 +80,45 @@ async function doRegister(){
   if(!restaurant||!razonsocial||!address||!city||!piva||!email||!phone||!pass){
     showErr(err,'Completá todos los campos.'); return;
   }
-
   if(!isValidPartitaIva(piva)){
     showErr(err,'La Partita IVA no es válida. Verificá los 11 dígitos.');
     return;
   }
-  
   if(pass.length<6){ showErr(err,'La contraseña debe tener al menos 6 caracteres.'); return; }
 
-  const users = getUsers();
-  if(users.find(u=>u.email===email)){ showErr(err,'Este email ya está registrado.'); return; }
+  const { createUserWithEmailAndPassword } = window.firebaseAuthFns;
+  const { doc, setDoc } = window.firebaseDbFns;
 
-  const user = {restaurant,razonsocial,address,city,piva,email,phone,password:pass};
+  try{
+    const credential = await createUserWithEmailAndPassword(window.firebaseAuth, email, pass);
+    const uid = credential.user.uid;
 
-  // Si hay webhook n8n configurado, guardar en Sheets via n8n
-  if(N8N_REGISTER){
-    try{
-      await fetch(N8N_REGISTER, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(user)});
-    }catch(e){ console.warn('n8n no disponible, guardando solo en localStorage'); }
+    const user = {restaurant,razonsocial,address,city,piva,email,phone};
+
+    await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
+
+    setSession({...user, uid});
+    startApp({...user, uid});
+
+  }catch(e){
+    if(e.code === 'auth/email-already-in-use'){
+      showErr(err,'Este email ya está registrado.');
+    }else if(e.code === 'auth/invalid-email'){
+      showErr(err,'El email no es válido.');
+    }else{
+      showErr(err,'Error al registrar. Intentá de nuevo.');
+      console.error('Error en registro:', e);
+    }
   }
-
-  // Siempre guardar en localStorage como respaldo
-  users.push(user);
-  saveUsers(users);
-  setSession(user); startApp(user);
 }
 
-function doLogout(){
+async function doLogout(){
+  const { signOut } = window.firebaseAuthFns;
+  try{
+    await signOut(window.firebaseAuth);
+  }catch(e){
+    console.error('Error al cerrar sesión en Firebase:', e);
+  }
   clearSession(); currentUser=null; cart={};
   document.getElementById('app-screen').style.display='none';
   document.getElementById('auth-screen').style.display='flex';

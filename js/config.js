@@ -22,8 +22,6 @@ let activeType = 'all';
 
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────
-function getUsers(){ return JSON.parse(localStorage.getItem('vda_users')||'[]'); }
-function saveUsers(u){ localStorage.setItem('vda_users', JSON.stringify(u)); }
 function getSession(){ return JSON.parse(localStorage.getItem('vda_session')||'null'); }
 function setSession(u){ localStorage.setItem('vda_session', JSON.stringify(u)); }
 function clearSession(){ localStorage.removeItem('vda_session'); }
