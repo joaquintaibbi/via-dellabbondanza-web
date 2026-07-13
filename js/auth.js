@@ -93,6 +93,9 @@ async function doRegister(){
     const credential = await createUserWithEmailAndPassword(window.firebaseAuth, email, pass);
     const uid = credential.user.uid;
 
+    const { sendEmailVerification } = window.firebaseAuthFns;
+    sendEmailVerification(credential.user).catch(e => console.warn('No se pudo enviar el mail de verificación:', e));
+
     const user = {restaurant,razonsocial,address,city,piva,email,phone};
 
     await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
@@ -131,7 +134,46 @@ function startApp(user){
   document.getElementById('auth-screen').style.display='none';
   document.getElementById('app-screen').style.display='flex';
   document.getElementById('header-user').textContent = user.restaurant;
+  renderVerificationBanner();
   loadCatalog();
+}
+
+function renderVerificationBanner(){
+  const existing = document.getElementById('verify-banner');
+  if(existing) existing.remove();
+
+  const fbUser = window.firebaseAuth.currentUser;
+  if(!fbUser || fbUser.emailVerified) return;
+
+  const banner = document.createElement('div');
+  banner.id = 'verify-banner';
+  banner.style.cssText = 'background:#FEF3E4;color:#854D0E;padding:10px 20px;font-size:13px;text-align:center;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;';
+  banner.innerHTML = `
+    <span>📧 Verificá tu email para poder confirmar pedidos.</span>
+    <button id="resend-verify-btn" style="background:#854D0E;color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;">Reenviar email</button>
+  `;
+
+  const header = document.querySelector('header');
+  header.insertAdjacentElement('afterend', banner);
+
+  document.getElementById('resend-verify-btn').addEventListener('click', async (e) => {
+    const btn = e.target;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try{
+      const { sendEmailVerification } = window.firebaseAuthFns;
+      await sendEmailVerification(window.firebaseAuth.currentUser);
+btn.textContent = '¡Enviado!';
+    }catch(err){
+      if(err.code === 'auth/too-many-requests'){
+        btn.textContent = 'Esperá un minuto e intentá de nuevo';
+      }else{
+        btn.textContent = 'Error, reintentá';
+      }
+      btn.disabled = false;
+      console.error('Error reenviando verificación:', err);
+    }
+  });
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────

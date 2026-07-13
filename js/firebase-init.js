@@ -8,7 +8,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendEmailVerification
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 import {
   getFirestore,
@@ -35,7 +36,8 @@ window.firebaseAuthFns = {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  sendEmailVerification
 };
 
 window.firebaseDbFns = {
