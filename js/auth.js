@@ -36,6 +36,23 @@ async function doLogin(){
   setSession(user); startApp(user);
 }
 
+function isValidPartitaIva(piva){
+  const clean = piva.replace(/\s/g,'').toUpperCase().replace(/^IT/,'');
+  if(!/^\d{11}$/.test(clean)) return false;
+
+  let sum = 0;
+  for(let i=0; i<10; i++){
+    let digit = parseInt(clean[i], 10);
+    if(i % 2 === 1){
+      digit *= 2;
+      if(digit > 9) digit -= 9;
+    }
+    sum += digit;
+  }
+  const checkDigit = (10 - (sum % 10)) % 10;
+  return checkDigit === parseInt(clean[10], 10);
+}
+
 async function doRegister(){
   const restaurant = document.getElementById('reg-restaurant').value.trim();
   const razonsocial = document.getElementById('reg-razonsocial').value.trim();
@@ -52,6 +69,12 @@ async function doRegister(){
   if(!restaurant||!razonsocial||!address||!city||!piva||!email||!phone||!pass){
     showErr(err,'Completá todos los campos.'); return;
   }
+
+  if(!isValidPartitaIva(piva)){
+    showErr(err,'La Partita IVA no es válida. Verificá los 11 dígitos.');
+    return;
+  }
+  
   if(pass.length<6){ showErr(err,'La contraseña debe tener al menos 6 caracteres.'); return; }
 
   const users = getUsers();
