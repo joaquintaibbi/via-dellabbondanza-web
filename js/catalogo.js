@@ -111,6 +111,8 @@ function irAPagina(n){
   document.getElementById('catalog').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
+const BOTELLAS_POR_CAJA = 6;
+
 function wineCard(w){
   const precio = parseFloat(w['Precio (€)']||0).toFixed(2);
   const agotado = w['Agotado']==='Sí';
@@ -118,19 +120,23 @@ function wineCard(w){
   const img = w['URL Foto'] ? `<img src="${w['URL Foto']}" alt="${w['Nombre']}" loading="lazy" onerror="this.parentNode.innerHTML='<span class=wine-img-placeholder>🍷</span>'"/>` : '<span class="wine-img-placeholder">🍷</span>';
   const id = w['ID'];
 
-  return `<div class="wine-card" onclick="openWineModal('${id}')">
-    <div class="wine-img">
+  return `<div class="wine-card">
+    <div class="wine-img" onclick="openWineModal('${id}')">
       ${img}
       ${agotado?'<span class="badge-agotado">Agotado</span>':''}
       ${isNew?'<span class="badge-new">Nuevo</span>':''}
     </div>
     <div class="wine-info">
-      <div class="wine-bodega">${w['Bodega']||''}</div>
-      <div class="wine-name">${w['Nombre']}</div>
-      <div class="wine-meta">${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}</div>
+      <div class="wine-bodega" onclick="openWineModal('${id}')">${w['Bodega']||''}</div>
+      <div class="wine-name" onclick="openWineModal('${id}')">${w['Nombre']}</div>
+      <div class="wine-meta" onclick="openWineModal('${id}')">${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}</div>
       <div class="wine-footer">
         <div class="wine-price">€${precio} <span>/botella</span></div>
-        <button class="add-btn" ${agotado?'disabled':''} onclick="addToCart('${id}')" title="Agregar al pedido">+</button>
+        <select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
+          <option value="unidad">Unidad</option>
+          <option value="caja">Caja x${BOTELLAS_POR_CAJA}</option>
+        </select>
+        <button class="add-btn" ${agotado?'disabled':''} onclick="event.stopPropagation(); addToCart('${id}')" title="Agregar al pedido">+</button>
       </div>
     </div>
   </div>`;
