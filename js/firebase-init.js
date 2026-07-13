@@ -3,6 +3,7 @@
 // window para que el resto del código (scripts clásicos) lo use.
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app-check.js";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -28,6 +29,10 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeU-FEtAAAAAIlVrCAyJgcSuQkD_Oute9YJmXd-'),
+  isTokenAutoRefreshEnabled: true
+});
 
 window.firebaseAuth = getAuth(app);
 window.firebaseDb = getFirestore(app);
