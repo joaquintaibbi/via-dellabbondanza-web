@@ -161,8 +161,26 @@
 
 <script type="module" src="js/firebase-init.js"></script>
 <script src="js/config.js"></script>
+<script src="js/bodegas.js"></script>
 <script src="js/catalogo.js"></script>
 <script src="js/carrito.js"></script>
 <script src="js/auth.js"></script>
+<!-- MODAL VINO -->
+<div id="modal-overlay" onclick="closeWineModal()"></div>
+<div id="wine-modal">
+  <button class="modal-close" onclick="closeWineModal()">✕</button>
+  <div class="modal-img" id="modal-img"></div>
+  <div class="modal-info">
+    <div class="wine-bodega" id="modal-bodega"></div>
+    <h2 class="modal-name" id="modal-name"></h2>
+    <p class="modal-meta" id="modal-meta"></p>
+    <div id="modal-bodega-desc"></div>
+    <p class="modal-precio" id="modal-precio"></p>
+    <div class="modal-footer">
+      <input type="number" id="modal-qty" min="1" value="1" class="modal-qty"/>
+      <button id="modal-add" class="btn-primary">Agregar al pedido</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
