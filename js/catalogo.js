@@ -2,7 +2,8 @@
 // Carga el catálogo desde Google Sheets (CSV publicado), aplica
 // filtros y búsqueda, y renderiza las tarjetas de vino.
 // Depende de config.js.
-
+let paginaActual = 1;
+const VINOS_POR_PAGINA = 24;
 // ── CATALOG ───────────────────────────────────────────────────────────────────
 function loadCatalog(){
   Papa.parse(SHEETS_CSV, {
@@ -25,9 +26,10 @@ function loadCatalog(){
 }
 
 function applyFilters(){
+  paginaActual = 1;
   const q = document.getElementById('search').value.toLowerCase();
   const btn = document.getElementById('clear-search');
-btn.style.display = q ? 'block' : 'none';
+  btn.style.display = q ? 'block' : 'none';
   filtered = wines.filter(w => {
     const matchType = activeType==='all' || (w['Tipo']||'').toLowerCase()===activeType;
     const matchQ = !q ||
@@ -54,7 +56,35 @@ function renderCatalog(list){
     el.innerHTML='<div class="empty-state"><h3>Sin resultados</h3><p>Probá con otros filtros.</p></div>';
     return;
   }
-  el.innerHTML = list.map(w => wineCard(w)).join('');
+
+  const totalPaginas = Math.ceil(list.length / VINOS_POR_PAGINA);
+  if(paginaActual > totalPaginas) paginaActual = 1;
+
+  const inicio = (paginaActual - 1) * VINOS_POR_PAGINA;
+  const pagina = list.slice(inicio, inicio + VINOS_POR_PAGINA);
+
+  el.innerHTML = pagina.map(w => wineCard(w)).join('') + renderPaginacion(totalPaginas);
+}
+
+function renderPaginacion(totalPaginas){
+  if(totalPaginas <= 1) return '';
+
+  let botones = '';
+  for(let i = 1; i <= totalPaginas; i++){
+    botones += `<button class="pagina-btn ${i===paginaActual?'active':''}" onclick="irAPagina(${i})">${i}</button>`;
+  }
+
+  return `<div class="paginacion">
+    <button class="pagina-btn" onclick="irAPagina(${paginaActual - 1})" ${paginaActual===1?'disabled':''}>‹</button>
+    ${botones}
+    <button class="pagina-btn" onclick="irAPagina(${paginaActual + 1})" ${paginaActual===totalPaginas?'disabled':''}>›</button>
+  </div>`;
+}
+
+function irAPagina(n){
+  paginaActual = n;
+  renderCatalog(filtered);
+  document.getElementById('catalog').scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 function wineCard(w){

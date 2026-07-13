@@ -105,6 +105,7 @@
  <div class="filters-bar">
  <div class="search-box">
  <input type="text" id="search" placeholder="Buscar vino, bodega..." oninput="applyFilters()"/>
+ <button id="clear-search" onclick="clearSearch()" style="display:none;">✕</button>
  </div>
  <div class="filter-pills" id="type-filters">
  <button class="pill active" data-type="all" onclick="setTypeFilter('all',this)">Todos</button>
