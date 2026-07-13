@@ -4,6 +4,28 @@
 // Depende de config.js.
 let paginaActual = 1;
 const VINOS_POR_PAGINA = 24;
+const BODEGAS_DESTACADAS = ['Catena Zapata', 'Bodega del Fin del Mundo', 'Rutini', 'Malvinas'];
+const VINOS_POR_BODEGA_DESTACADA = 6;
+
+function renderDestacados(){
+  const el = document.getElementById('destacados');
+  if(!el) return;
+
+  let html = '';
+  BODEGAS_DESTACADAS.forEach(bodega => {
+    const vinosDeLaBodega = wines.filter(w => w['Bodega'] === bodega).slice(0, VINOS_POR_BODEGA_DESTACADA);
+    if(!vinosDeLaBodega.length) return;
+
+    html += `<div class="destacado-grupo">
+      <h3 class="destacado-titulo">${bodega}</h3>
+      <div class="destacado-scroll">
+        ${vinosDeLaBodega.map(w => wineCard(w)).join('')}
+      </div>
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
 // ── CATALOG ───────────────────────────────────────────────────────────────────
 function loadCatalog(){
   Papa.parse(SHEETS_CSV, {
@@ -19,6 +41,8 @@ function loadCatalog(){
         return w;
       }).filter(w => w['Nombre']);
       filtered = [...wines];
+      filtered = [...wines];
+      renderDestacados();
       renderCatalog(filtered);
     },
     error: function(){ renderError(); }
