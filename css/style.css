@@ -19,8 +19,12 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 
 /* ── AUTH ── */
 #auth-screen{
-  min-height:100vh;display:flex;
+  display:none;
+  position:fixed; inset:0; z-index:300;
+  background:rgba(28,23,20,.55);
+  align-items:center; justify-content:center;
 }
+#auth-screen.open{ display:flex; }
 .auth-left{
   width:50%;background:var(--wine);
   display:flex;flex-direction:column;justify-content:center;align-items:center;
@@ -92,7 +96,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
 }
 
 /* ── APP ── */
-#app-screen{display:none;min-height:100vh;flex-direction:column;}
+#app-screen{display:flex;min-height:100vh;flex-direction:column;}
 header{
   background:var(--wine);padding:0 40px;
   display:flex;align-items:center;justify-content:space-between;
@@ -470,3 +474,20 @@ header{
   font-size:13px; font-weight:600; letter-spacing:.5px; text-transform:uppercase;
   color:var(--muted);
 }
+#auth-screen .auth-left{ display:none; }
+#auth-screen .auth-right{
+  width:100%; max-width:440px;
+  padding:40px 32px;
+  background:var(--surface); border-radius:16px;
+  box-shadow:var(--shadow-lg);
+  max-height:90vh; overflow-y:auto;
+  position:relative;
+}
+.auth-modal-close{
+  position:absolute; top:16px; right:16px;
+  width:32px; height:32px; border:none; border-radius:50%;
+  background:var(--light); color:var(--muted);
+  font-size:14px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+}
+.auth-modal-close:hover{ background:var(--border); color:var(--text); }

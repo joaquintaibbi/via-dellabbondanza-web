@@ -93,6 +93,13 @@ function renderCartItems(){
 function sendOrder(){
   const items = Object.values(cart);
   if(!items.length){ alert('Agregá vinos al carrito primero.'); return; }
+
+  if(!currentUser){
+    pendingOrderAfterLogin = true;
+    closeCart();
+    openAuthModal();
+    return;
+  }
   let total = 0;
   const lines = items.map(item=>{
     const precio = parseFloat(item.wine['Precio (€)']||0);

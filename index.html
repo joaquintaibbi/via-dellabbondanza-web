@@ -23,6 +23,7 @@
  <div class="auth-grape">🍇</div>
  </div>
  <div class="auth-right">
+<button class="auth-modal-close" onclick="cancelAuthModal()">✕</button>
  <div class="auth-box">
  <div class="auth-tab">
  <button class="active" onclick="showTab('login')">Accedi</button>
@@ -90,7 +91,7 @@
 </div>
 
 <!-- ══ APP SCREEN ════════════════════════════════════════════════════════════ -->
-<div id="app-screen" style="display:none;flex-direction:column;">
+<div id="app-screen">
  <header>
  <div class="header-brand">Vía Dell'<span>Abbondanza</span></div>
  <div class="header-actions">
@@ -98,7 +99,7 @@
  <button class="cart-btn" onclick="openCart()">
         🛒 Carrito <span class="cart-count" id="cart-count">0</span>
  </button>
- <button class="logout-btn" onclick="doLogout()">Salir</button>
+ <button class="logout-btn" id="header-auth-btn" onclick="headerAuthAction()">Iniciar sesión</button>
  </div>
  </header>
 

@@ -19,6 +19,7 @@ let filtered = [];
 let cart = {};
 let currentUser = null;
 let activeType = 'all';
+let pendingOrderAfterLogin = false;
 
 
 // ── STORAGE ───────────────────────────────────────────────────────────────────

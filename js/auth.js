@@ -37,6 +37,11 @@ async function doLogin(){
     setSession(user);
     startApp(user);
 
+    if(pendingOrderAfterLogin){
+      pendingOrderAfterLogin = false;
+      sendOrder();
+    }
+
   }catch(e){
     if(e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
       showErr(err,'Email o contraseña incorrectos.');
@@ -100,11 +105,17 @@ async function doRegister(){
 
     await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
 
-    setSession({...user, uid});
+ setSession({...user, uid});
     startApp({...user, uid});
+
+    if(pendingOrderAfterLogin){
+      pendingOrderAfterLogin = false;
+      sendOrder();
+    }
 
   }catch(e){
     if(e.code === 'auth/email-already-in-use'){
+
       showErr(err,'Este email ya está registrado.');
     }else if(e.code === 'auth/invalid-email'){
       showErr(err,'El email no es válido.');
@@ -123,19 +134,48 @@ async function doLogout(){
     console.error('Error al cerrar sesión en Firebase:', e);
   }
   clearSession(); currentUser=null; cart={};
-  document.getElementById('app-screen').style.display='none';
-  document.getElementById('auth-screen').style.display='flex';
+  updateCartUI();
+  const banner = document.getElementById('verify-banner');
+  if(banner) banner.remove();
+  updateHeaderAuthState();
 }
 
 function showErr(el, msg){ el.textContent=msg; el.style.display='block'; }
 // ── APP START ─────────────────────────────────────────────────────────────────
 function startApp(user){
   currentUser = user;
-  document.getElementById('auth-screen').style.display='none';
-  document.getElementById('app-screen').style.display='flex';
-  document.getElementById('header-user').textContent = user.restaurant;
+  closeAuthModal();
+  updateHeaderAuthState();
   renderVerificationBanner();
-  loadCatalog();
+}
+
+function updateHeaderAuthState(){
+  const userSpan = document.getElementById('header-user');
+  const btn = document.getElementById('header-auth-btn');
+  if(currentUser){
+    userSpan.textContent = currentUser.restaurant;
+    btn.textContent = 'Salir';
+  }else{
+    userSpan.textContent = '';
+    btn.textContent = 'Iniciar sesión';
+  }
+}
+
+function headerAuthAction(){
+  if(currentUser){ doLogout(); } else { openAuthModal(); }
+}
+
+function openAuthModal(){
+  document.getElementById('auth-screen').classList.add('open');
+}
+
+function closeAuthModal(){
+  document.getElementById('auth-screen').classList.remove('open');
+}
+
+function cancelAuthModal(){
+  closeAuthModal();
+  pendingOrderAfterLogin = false;
 }
 
 function renderVerificationBanner(){
@@ -178,6 +218,11 @@ btn.textContent = '¡Enviado!';
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 window.onload = function(){
+  loadCatalog();
   const session = getSession();
-  if(session){ startApp(session); }
+  if(session){
+    startApp(session);
+  }else{
+    updateHeaderAuthState();
+  }
 };
