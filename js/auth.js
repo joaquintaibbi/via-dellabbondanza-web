@@ -19,12 +19,6 @@ async function doLogin(){
 
   if(!email||!pass){ showErr(err,'Completá todos los campos.'); return; }
 
-  // Admin demo
-  if(email==='admin@viadellabbondanza.it'&&pass==='admin123'){
-    const user = {restaurant:'Administrador',email,razonsocial:"Vía Dell'Abbondanza",address:'',city:'',piva:'',phone:''};
-    setSession(user); startApp(user); return;
-  }
-
   // Si hay webhook de n8n configurado, usarlo
   if(N8N_LOGIN){
     try{
