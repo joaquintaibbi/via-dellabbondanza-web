@@ -70,7 +70,7 @@ function renderCartItems(){
     const subtotal = precio * botellas * item.qty;
     total += subtotal;
     const img = item.wine['URL Foto'] ? `<img src="${item.wine['URL Foto']}" alt=""/>` : '🍷';
-    const etiqueta = item.esCaja ? `Caja x${botellas}` : 'Unidad';
+    const etiqueta = item.esCaja ? `${t('cart.caja')} x${botellas}` : t('cart.unidad');
     return `<div class="cart-item">
       <div class="cart-item-img">${img}</div>
       <div class="cart-item-info">
@@ -92,16 +92,16 @@ function renderCartItems(){
   // Client info
   if(currentUser){
     document.getElementById('cart-client-info').innerHTML = `
-      <strong>Datos del cliente</strong>
+      <strong>${t('cart.client.title')}</strong>
       <p>${currentUser.restaurant} · ${currentUser.razonsocial}<br>
       ${currentUser.address}, ${currentUser.city}<br>
-      P.IVA: ${currentUser.piva} · ${currentUser.phone}</p>`;
+      ${t('wa.piva')} ${currentUser.piva} · ${currentUser.phone}</p>`;
   }
 }
 
 function sendOrder(){
   const items = Object.values(cart);
-  if(!items.length){ alert('Agregá vinos al carrito primero.'); return; }
+  if(!items.length){ alert(t('cart.err.vacio')); return; }
 
   if(!currentUser){
     pendingOrderAfterLogin = true;
@@ -115,7 +115,7 @@ function sendOrder(){
     const botellas = item.botellasPorUnidad || 1;
     const subtotal = precio * botellas * item.qty;
     total += subtotal;
-    const etiqueta = item.esCaja ? `Caja x${botellas}` : 'Unidad';
+    const etiqueta = item.esCaja ? `${t('cart.caja')} x${botellas}` : t('cart.unidad');
     const cosechaTxt = item.wine['Cosecha'] ? ` (${item.wine['Cosecha']})` : '';
     return `• ${item.qty}× ${item.wine['Nombre']}${cosechaTxt} — ${etiqueta} — €${(precio*botellas).toFixed(2)} c/u`;
   }).join('\n');

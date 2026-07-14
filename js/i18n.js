@@ -45,7 +45,9 @@ const TRANSLATIONS = {
     'catalog.error.body': 'Impossibile connettersi al catalogo. Riprova.',
     'catalog.count': 'vini',
     'cart.title': 'Il tuo ordine',
+    'cart.button': 'Carrello',
     'cart.empty': 'Il tuo carrello è vuoto',
+    'cart.client.title': 'Dati del cliente',
     'cart.total': 'Totale',
     'cart.send': "Invia ordine a Via dell'Abbondanza",
     'cart.unidad': 'Unità',
@@ -117,7 +119,9 @@ const TRANSLATIONS = {
     'catalog.error.body': 'No se pudo conectar con el catálogo. Intentá de nuevo.',
     'catalog.count': 'vinos',
     'cart.title': 'Tu pedido',
+    'cart.button': 'Carrito',
     'cart.empty': 'Tu carrito está vacío',
+    'cart.client.title': 'Datos del cliente',
     'cart.total': 'Total',
     'cart.send': "Enviar pedido a Via dell'Abbondanza",
     'cart.unidad': 'Unidad',
@@ -189,7 +193,9 @@ const TRANSLATIONS = {
     'catalog.error.body': 'Could not connect to the catalog. Try again.',
     'catalog.count': 'wines',
     'cart.title': 'Your order',
+    'cart.button': 'Cart',
     'cart.empty': 'Your cart is empty',
+    'cart.client.title': 'Customer details',
     'cart.total': 'Total',
     'cart.send': "Send order to Via dell'Abbondanza",
     'cart.unidad': 'Bottle',
@@ -260,6 +266,9 @@ function setLang(lang){
   }
   if(typeof renderCartItems === 'function'){
     renderCartItems();
+  }
+  if(typeof updateHeaderAuthState === 'function'){
+    updateHeaderAuthState();
   }
 }
 

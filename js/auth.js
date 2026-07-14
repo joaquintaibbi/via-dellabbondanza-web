@@ -17,7 +17,7 @@ async function doLogin(){
   const err = document.getElementById('login-error');
   err.style.display='none';
 
-  if(!email||!pass){ showErr(err,'Completá todos los campos.'); return; }
+  if(!email||!pass){ showErr(err,t('auth.err.campos')); return; }
 
   const { signInWithEmailAndPassword } = window.firebaseAuthFns;
   const { doc, getDoc } = window.firebaseDbFns;
@@ -29,7 +29,7 @@ async function doLogin(){
     const userDoc = await getDoc(doc(window.firebaseDb, 'usuarios', uid));
 
     if(!userDoc.exists()){
-      showErr(err,'No se encontraron los datos de tu cuenta. Contactanos.');
+      showErr(err,t('auth.err.sin.datos'));
       return;
     }
 
@@ -44,9 +44,9 @@ async function doLogin(){
 
   }catch(e){
     if(e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
-      showErr(err,'Email o contraseña incorrectos.');
+      showErr(err,t('auth.err.credenciales'));
     }else{
-      showErr(err,'Error al iniciar sesión. Intentá de nuevo.');
+      showErr(err,t('auth.err.generico.login'));
       console.error('Error en login:', e);
     }
   }
@@ -83,13 +83,13 @@ async function doRegister(){
   err.style.display='none'; suc.style.display='none';
 
   if(!restaurant||!razonsocial||!address||!city||!piva||!email||!phone||!pass){
-    showErr(err,'Completá todos los campos.'); return;
+    showErr(err,t('auth.err.campos')); return;
   }
   if(!isValidPartitaIva(piva)){
-    showErr(err,'La Partita IVA no es válida. Verificá los 11 dígitos.');
+    showErr(err,t('auth.err.piva'));
     return;
   }
-  if(pass.length<6){ showErr(err,'La contraseña debe tener al menos 6 caracteres.'); return; }
+  if(pass.length<6){ showErr(err,t('auth.err.password.corta')); return; }
 
   const { createUserWithEmailAndPassword } = window.firebaseAuthFns;
   const { doc, setDoc } = window.firebaseDbFns;
@@ -115,12 +115,11 @@ async function doRegister(){
 
   }catch(e){
     if(e.code === 'auth/email-already-in-use'){
-
-      showErr(err,'Este email ya está registrado.');
+      showErr(err,t('auth.err.email.usado'));
     }else if(e.code === 'auth/invalid-email'){
-      showErr(err,'El email no es válido.');
+      showErr(err,t('auth.err.email.invalido'));
     }else{
-      showErr(err,'Error al registrar. Intentá de nuevo.');
+      showErr(err,t('auth.err.generico.registro'));
       console.error('Error en registro:', e);
     }
   }
@@ -154,10 +153,10 @@ function updateHeaderAuthState(){
   const btn = document.getElementById('header-auth-btn');
   if(currentUser){
     userSpan.textContent = currentUser.restaurant;
-    btn.textContent = 'Salir';
+    btn.textContent = t('header.logout');
   }else{
     userSpan.textContent = '';
-    btn.textContent = 'Iniciar sesión';
+    btn.textContent = t('header.login');
   }
 }
 
@@ -218,6 +217,7 @@ btn.textContent = '¡Enviado!';
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 window.onload = function(){
+  applyTranslations();
   loadCatalog();
   const session = getSession();
   if(session){
