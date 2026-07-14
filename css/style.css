@@ -105,6 +105,7 @@ header{
 .header-brand{
   font-family:'Playfair Display',serif;
   font-size:18px;font-weight:700;color:#fff;letter-spacing:.5px;
+  display:flex;align-items:center;gap:8px;
 }
 .header-brand span{color:var(--gold);}
 .header-actions{display:flex;align-items:center;gap:20px;}
@@ -527,3 +528,11 @@ header{
 }
 .filters-row-2 select:focus,
 .filters-row-2 input:focus{ outline:none; border-color:var(--wine); }
+/* ── HEADER LOGO ── */
+.header-logo{
+  height:36px;
+  width:auto;
+  vertical-align:middle;
+  margin-right:10px;
+  filter:brightness(0) invert(1);
+}
