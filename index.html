@@ -133,9 +133,37 @@
 <button class="pill" data-type="rosado" onclick="setTypeFilter('rosado',this)" data-i18n="filter.rosado">Rosados</button>
 <button class="pill" data-type="espumante" onclick="setTypeFilter('espumante',this)" data-i18n="filter.espumante">Espumantes</button>
 </div>
- </div>
- <span class="results-count" id="results-count"></span>
- </div>
+ <div class="filters-row-2">
+<select id="filter-uva" onchange="applyFilters()">
+<option value="" data-i18n="filter.uva">Uva</option>
+<option value="malbec">Malbec</option>
+<option value="cabernet sauvignon">Cabernet Sauvignon</option>
+<option value="cabernet franc">Cabernet Franc</option>
+<option value="merlot">Merlot</option>
+<option value="pinot noir">Pinot Noir</option>
+<option value="chardonnay">Chardonnay</option>
+<option value="sauvignon blanc">Sauvignon Blanc</option>
+<option value="torrontés">Torrontés</option>
+<option value="tannat">Tannat</option>
+<option value="shiraz">Shiraz/Syrah</option>
+<option value="carménère">Carménère</option>
+<option value="petit verdot">Petit Verdot</option>
+<option value="albariño">Albariño</option>
+</select>
+<select id="filter-region" onchange="applyFilters()">
+<option value="" data-i18n="filter.region">Región</option>
+<option value="mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael">Mendoza</option>
+<option value="salta|cafayate|calchaqu|jujuy">Salta</option>
+<option value="patagonia|sarmiento|chubut|negro">Patagonia</option>
+<option value="canelones|maldonado|montevideo|chapeu">Uruguay</option>
+<option value="central|cachapoal|colchagua">Chile</option>
+<option value="ararat|armavir|puglia|sicilia|mallorca|ibiza|eivissa|yamanashi" data-i18n="filter.otros.paises">Otros países</option>
+</select>
+<input type="number" id="filter-precio-min" placeholder="€ mín" min="0" oninput="applyFilters()" data-i18n-placeholder="filter.precio.min"/>
+<<input type="number" id="filter-precio-max" placeholder="€ máx" min="0" oninput="applyFilters()" data-i18n-placeholder="filter.precio.max"/>
+</div>
+<span class="results-count" id="results-count"></span>
+</div>    
 
  <div class="catalog-area">
  <div id="catalog" class="catalog-grid">

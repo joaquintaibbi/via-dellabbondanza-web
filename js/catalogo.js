@@ -54,6 +54,13 @@ function applyFilters(){
   const q = document.getElementById('search').value.toLowerCase();
   const btn = document.getElementById('clear-search');
   btn.style.display = q ? 'block' : 'none';
+
+  const uvaSel = document.getElementById('filter-uva').value;
+  const regionSel = document.getElementById('filter-region').value;
+  const precioMin = parseFloat(document.getElementById('filter-precio-min').value) || 0;
+  const precioMaxInput = document.getElementById('filter-precio-max').value;
+  const precioMax = precioMaxInput ? parseFloat(precioMaxInput) : Infinity;
+
   filtered = wines.filter(w => {
     const matchType = activeType==='all' || (w['Tipo']||'').toLowerCase()===activeType;
     const matchQ = !q ||
@@ -61,8 +68,19 @@ function applyFilters(){
       (w['Bodega']||'').toLowerCase().includes(q) ||
       (w['Uva(s)']||'').toLowerCase().includes(q) ||
       (w['Región']||'').toLowerCase().includes(q);
-    return matchType && matchQ;
+
+    const uvaTexto = (w['Uva(s)']||'').toLowerCase();
+    const matchUva = !uvaSel || uvaTexto.includes(uvaSel);
+
+    const regionTexto = (w['Región']||'').toLowerCase();
+    const matchRegion = !regionSel || regionSel.split('|').some(palabra => regionTexto.includes(palabra));
+
+    const precio = parseFloat(w['Precio (€)']) || 0;
+    const matchPrecio = precio >= precioMin && precio <= precioMax;
+
+    return matchType && matchQ && matchUva && matchRegion && matchPrecio;
   });
+
   renderCatalog(filtered);
 }
 
