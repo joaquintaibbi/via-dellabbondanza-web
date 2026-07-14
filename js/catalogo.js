@@ -41,7 +41,7 @@ function loadCatalog(){
         return w;
       }).filter(w => w['Nombre']);
       filtered = [...wines];
-      filtered = [...wines];
+      poblarFiltroBodegas();
       renderDestacados();
       renderCatalog(filtered);
     },
@@ -74,11 +74,13 @@ function applyFilters(){
 
     const regionTexto = (w['Región']||'').toLowerCase();
     const matchRegion = !regionSel || regionSel.split('|').some(palabra => regionTexto.includes(palabra));
+    const bodegaSel = document.getElementById('filter-bodega').value;
+    const matchBodega = !bodegaSel || (w['Bodega']||'') === bodegaSel;
 
     const precio = parseFloat(w['Precio (€)']) || 0;
     const matchPrecio = precio >= precioMin && precio <= precioMax;
 
-    return matchType && matchQ && matchUva && matchRegion && matchPrecio;
+    return matchType && matchQ && matchUva && matchRegion && matchPrecio && matchBodega;
   });
 
   renderCatalog(filtered);
@@ -181,13 +183,13 @@ function openWineModal(id){
   document.getElementById('modal-img').innerHTML = img;
   const bodegaInfo = getBodegaInfo(w['Bodega']);
 const descHTML = bodegaInfo
-  ? `<div class="modal-bodega-desc"><p>${bodegaInfo.descripcion}</p><span>📍 ${bodegaInfo.region} · Desde ${bodegaInfo.fundacion}</span></div>`
+  ? `<div class="modal-bodega-desc"><p>${bodegaInfo.descripcion}</p><span>📍 ${bodegaInfo.region} · ${t('modal.desde')} ${bodegaInfo.fundacion}</span></div>`
   : '';
 document.getElementById('modal-bodega-desc').innerHTML = descHTML;
   document.getElementById('modal-bodega').textContent = w['Bodega']||'';
   document.getElementById('modal-name').textContent = w['Nombre']||'';
   document.getElementById('modal-meta').textContent = `${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}`;
-  document.getElementById('modal-precio').textContent = `€${precio} / botella`;
+  document.getElementById('modal-precio').textContent = `€${precio} / ${t('modal.precio.unidad')}`;
   document.getElementById('modal-qty').value = 1;
   document.getElementById('modal-add').onclick = () => {
     const qty = parseInt(document.getElementById('modal-qty').value)||1;
@@ -203,4 +205,15 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
 function closeWineModal(){
   document.getElementById('wine-modal').classList.remove('open');
   document.getElementById('modal-overlay').classList.remove('open');
+}
+function poblarFiltroBodegas(){
+  const select = document.getElementById('filter-bodega');
+  const bodegas = [...new Set(wines.map(w => w['Bodega']).filter(Boolean))].sort();
+  const opcionesActuales = select.innerHTML;
+  bodegas.forEach(bodega => {
+    const option = document.createElement('option');
+    option.value = bodega;
+    option.textContent = bodega;
+    select.appendChild(option);
+  });
 }
