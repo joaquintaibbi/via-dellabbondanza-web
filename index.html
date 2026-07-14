@@ -32,22 +32,22 @@
 <button class="auth-modal-close" onclick="cancelAuthModal()">✕</button>
  <div class="auth-box">
  <div class="auth-tab">
- <button class="active" onclick="showTab('login')">Accedi</button>
- <button onclick="showTab('register')">Registrati</button>
+ <button class="active" onclick="showTab('login')" data-i18n="auth.tab.login">Accedi</button>
+ <button onclick="showTab('register')" data-i18n="auth.tab.register">Registrati</button>
  </div>
 
  <!-- LOGIN -->
  <div id="tab-login" class="auth-form">
  <div class="auth-error" id="login-error"></div>
  <div class="form-group">
- <label>Email</label>
- <input type="email" id="login-email" placeholder="tu@restaurante.it"/>
+ <label data-i18n="auth.label.email">Email</label>
+<input type="email" id="login-email" placeholder="tu@restaurante.it" data-i18n-placeholder="auth.placeholder.email"/>
  </div>
  <div class="form-group">
- <label>Contraseña</label>
- <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()"/>
+ <label data-i18n="auth.label.password">Contraseña</label>
+<input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" data-i18n-placeholder="auth.placeholder.password"/>
  </div>
- <button class="btn-primary" onclick="doLogin()">Acceder al catálogo →</button>
+ <button class="btn-primary" onclick="doLogin()" data-i18n="auth.login.btn">Acceder al catálogo →</button>
  </div>
 
  <!-- REGISTER -->
@@ -55,42 +55,42 @@
  <div class="auth-error" id="reg-error"></div>
  <div class="auth-success" id="reg-success"></div>
  <div class="form-group">
- <label>Nombre</label>
- <input type="text" id="reg-restaurant" placeholder="Trattoria Da Mario"/>
+ <label data-i18n="auth.label.nombre">Nombre</label>
+<input type="text" id="reg-restaurant" placeholder="Trattoria Da Mario" data-i18n-placeholder="auth.placeholder.nombre"/>
  </div>
  <div class="form-group">
- <label>Razón social / Denominazione</label>
- <input type="text" id="reg-razonsocial" placeholder="Da Mario SRL"/>
+ <label data-i18n="auth.label.razonsocial">Razón social</label>
+<input type="text" id="reg-razonsocial" placeholder="Da Mario SRL" data-i18n-placeholder="auth.placeholder.razonsocial"/>
  </div>
  <div class="form-group">
- <label>Dirección</label>
- <input type="text" id="reg-address" placeholder="Via Roma 45"/>
+ <label data-i18n="auth.label.direccion">Dirección</label>
+<input type="text" id="reg-address" placeholder="Via Roma 45" data-i18n-placeholder="auth.placeholder.direccion"/>
  </div>
  <div class="form-row">
  <div class="form-group">
- <label>Ciudad</label>
- <input type="text" id="reg-city" placeholder="Milano"/>
+<label data-i18n="auth.label.ciudad">Ciudad</label>
+<input type="text" id="reg-city" placeholder="Milano" data-i18n-placeholder="auth.placeholder.ciudad"/>
  </div>
  <div class="form-group">
- <label>Partita IVA</label>
- <input type="text" id="reg-piva" placeholder="IT12345678901"/>
+<label data-i18n="auth.label.piva">Partita IVA</label>
+<input type="text" id="reg-piva" placeholder="IT12345678901" data-i18n-placeholder="auth.placeholder.piva"/>
  </div>
  </div>
  <div class="form-row">
  <div class="form-group">
- <label>Email</label>
- <input type="email" id="reg-email" placeholder="mario@restaurante.it"/>
+ <label data-i18n="auth.label.email">Email</label>
+<input type="email" id="reg-email" placeholder="mario@restaurante.it" data-i18n-placeholder="auth.placeholder.email"/>
  </div>
  <div class="form-group">
- <label>Teléfono</label>
- <input type="text" id="reg-phone" placeholder="+39 02 123456"/>
+<label data-i18n="auth.label.telefono">Teléfono</label>
+<input type="text" id="reg-phone" placeholder="+39 02 123456" data-i18n-placeholder="auth.placeholder.telefono"/>
  </div>
  </div>
  <div class="form-group">
- <label>Contraseña</label>
- <input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres"/>
+<label data-i18n="auth.label.password">Contraseña</label>
+<input type="password" id="reg-pass" placeholder="Mínimo 6 caracteres" data-i18n-placeholder="auth.placeholder.password.reg"/>
  </div>
- <button class="btn-primary" onclick="doRegister()">Crear cuenta y acceder →</button>
+<button class="btn-primary" onclick="doRegister()" data-i18n="auth.register.btn">Crear cuenta y acceder →</button>
  </div>
  </div>
  </div>
@@ -111,22 +111,23 @@
 
 <div id="destacados-section">
 <div class="destacados-header">
-<span class="destacados-eyebrow">Selección curada</span>
-<h2 class="destacados-title">Nuestros vinos destacados</h2>
+<span class="destacados-eyebrow" data-i18n="destacados.eyebrow">Selección curada</span>
+<h2 class="destacados-title" data-i18n="destacados.title">Nuestros vinos destacados</h2>
 </div>
 <div id="destacados"></div>
 </div>
  <div class="filters-bar">
  <div class="search-box">
- <input type="text" id="search" placeholder="Buscar vino, bodega..." oninput="applyFilters()"/>
+ <input type="text" id="search" placeholder="Buscar vino, bodega..." oninput="applyFilters()" data-i18n-placeholder="search.placeholder"/>
  <button id="clear-search" onclick="clearSearch()" style="display:none;">✕</button>
  </div>
  <div class="filter-pills" id="type-filters">
- <button class="pill active" data-type="all" onclick="setTypeFilter('all',this)">Todos</button>
- <button class="pill" data-type="tinto" onclick="setTypeFilter('tinto',this)">Tintos</button>
- <button class="pill" data-type="blanco" onclick="setTypeFilter('blanco',this)">Blancos</button>
- <button class="pill" data-type="rosado" onclick="setTypeFilter('rosado',this)">Rosados</button>
- <button class="pill" data-type="espumante" onclick="setTypeFilter('espumante',this)">Espumantes</button>
+<button class="pill active" data-type="all" onclick="setTypeFilter('all',this)" data-i18n="filter.all">Todos</button>
+<button class="pill" data-type="tinto" onclick="setTypeFilter('tinto',this)" data-i18n="filter.tinto">Tintos</button>
+<button class="pill" data-type="blanco" onclick="setTypeFilter('blanco',this)" data-i18n="filter.blanco">Blancos</button>
+<button class="pill" data-type="rosado" onclick="setTypeFilter('rosado',this)" data-i18n="filter.rosado">Rosados</button>
+<button class="pill" data-type="espumante" onclick="setTypeFilter('espumante',this)" data-i18n="filter.espumante">Espumantes</button>
+</div>
  </div>
  <span class="results-count" id="results-count"></span>
  </div>
@@ -135,7 +136,7 @@
  <div id="catalog" class="catalog-grid">
  <div class="loading">
  <div class="loading-spinner"></div>
- <p>Cargando catálogo...</p>
+<p data-i18n="catalog.loading">Cargando catálogo...</p>
  </div>
  </div>
  </div>
@@ -145,17 +146,17 @@
 <div id="cart-overlay" onclick="closeCart()"></div>
 <div id="cart-drawer">
  <div class="cart-header">
- <h2>Tu pedido</h2>
+<h2 data-i18n="cart.title">Tu pedido</h2>
  <button class="cart-close" onclick="closeCart()">✕</button>
  </div>
  <div class="cart-items" id="cart-items"></div>
  <div class="cart-footer">
  <div class="cart-client-info" id="cart-client-info"></div>
  <div class="cart-total">
- <span class="cart-total-label">Total</span>
+<span class="cart-total-label" data-i18n="cart.total">Total</span>
  <span class="cart-total-value" id="cart-total">€0.00</span>
  </div>
- <button class="btn-whatsapp" onclick="sendOrder()">
+ <button class="btn-whatsapp" onclick="sendOrder()" data-i18n="cart.send"></button>
  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
  </svg>
@@ -168,13 +169,14 @@
 <div id="confirm-screen" style="display:none;min-height:100vh;align-items:center;justify-content:center;background:var(--bg);">
  <div class="confirm-box">
  <div class="confirm-icon">🍷</div>
- <h2>¡Pedido enviado!</h2>
- <p>Tu pedido fue enviado a Vía Dell'Abbondanza por WhatsApp. En breve recibirás confirmación con los detalles de entrega y factura.</p>
- <button class="btn-back" onclick="backToCatalog()">Volver al catálogo</button>
+ <h2 data-i18n="confirm.title">¡Pedido enviado!</h2>
+<p data-i18n="confirm.body">Tu pedido fue enviado a Vía Dell'Abbondanza por WhatsApp. En breve recibirás confirmación con los detalles de entrega y factura.</p>
+<button class="btn-back" onclick="backToCatalog()" data-i18n="confirm.back">Volver al catálogo</button>
  </div>
 </div>
 
 <script type="module" src="js/firebase-init.js"></script>
+<script src="js/i18n.js"></script>
 <script src="js/config.js"></script>
 <script src="js/bodegas.js"></script>
 <script src="js/catalogo.js"></script>
@@ -193,7 +195,7 @@
     <p class="modal-precio" id="modal-precio"></p>
     <div class="modal-footer">
       <input type="number" id="modal-qty" min="1" value="1" class="modal-qty"/>
-      <button id="modal-add" class="btn-primary">Agregar al pedido</button>
+      <button id="modal-add" class="btn-primary" data-i18n="modal.add">Agregar al pedido</button>
     </div>
   </div>
 </div>
