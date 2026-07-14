@@ -101,7 +101,7 @@ function openWineModal(id){
   const img = w['URL Foto'] ? `<img src="${w['URL Foto']}" alt="${w['Nombre']}"/>` : '🍷';
 
   document.getElementById('modal-img').innerHTML = img;
-  const bodegaInfo = BODEGAS_INFO[w['Bodega']] || null;
+  const bodegaInfo = getBodegaInfo(w['Bodega']);
 const descHTML = bodegaInfo
   ? `<div class="modal-bodega-desc"><p>${bodegaInfo.descripcion}</p><span>📍 ${bodegaInfo.region} · Desde ${bodegaInfo.fundacion}</span></div>`
   : '';
