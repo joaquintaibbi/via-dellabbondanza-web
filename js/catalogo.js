@@ -75,7 +75,7 @@ function setTypeFilter(type, el){
 
 function renderCatalog(list){
   const el = document.getElementById('catalog');
-  document.getElementById('results-count').textContent = `${list.length} vinos`;
+  document.getElementById('results-count').textContent = `${list.length} ${t('catalog.count')}`;
   if(!list.length){
     el.innerHTML='<div class="empty-state"><h3>Sin resultados</h3><p>Probá con otros filtros.</p></div>';
     return;
@@ -133,9 +133,9 @@ function wineCard(w){
       <div class="wine-footer">
         <div class="wine-price">€${precio} <span>/botella</span></div>
         <select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
-          <option value="unidad">Unidad</option>
-          <option value="caja">Caja x${BOTELLAS_POR_CAJA}</option>
-        </select>
+  <option value="unidad">${t('cart.unidad')}</option>
+  <option value="caja">${t('cart.caja')} x${BOTELLAS_POR_CAJA}</option>
+</select>
         <button class="add-btn" ${agotado?'disabled':''} onclick="event.stopPropagation(); addToCart('${id}')" title="Agregar al pedido">+</button>
       </div>
     </div>
