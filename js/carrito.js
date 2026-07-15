@@ -8,13 +8,13 @@ function addToCart(id){
   const wine = wines.find(w=>w['ID']===id);
   if(!wine) return;
 
-  const selectEl = document.getElementById(`unidad-${id}`);
+const selectEl = document.getElementById(`unidad-${id}`);
   const esCaja = selectEl && selectEl.value === 'caja';
-  const cantidad = esCaja ? BOTELLAS_POR_CAJA : 1;
+  const botellasPorCaja = parseInt(wine['Botellas_Por_Caja']) || 1;
 
   const key = esCaja ? `${id}-caja` : id;
 
-  if(!cart[key]) cart[key] = {wine, qty:0, esCaja, botellasPorUnidad: esCaja ? BOTELLAS_POR_CAJA : 1};
+  if(!cart[key]) cart[key] = {wine, qty:0, esCaja, botellasPorUnidad: esCaja ? botellasPorCaja : 1};
   cart[key].qty++;
 
   updateCartUI();
