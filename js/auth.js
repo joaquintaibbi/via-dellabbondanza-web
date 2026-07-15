@@ -19,6 +19,8 @@ async function doLogin(){
 
   if(!email||!pass){ showErr(err,t('auth.err.campos')); return; }
 
+  showAuthLoader();
+
   const { signInWithEmailAndPassword } = window.firebaseAuthFns;
   const { doc, getDoc } = window.firebaseDbFns;
 
@@ -49,6 +51,8 @@ async function doLogin(){
       showErr(err,t('auth.err.generico.login'));
       console.error('Error en login:', e);
     }
+  }finally{
+    hideAuthLoader();
   }
 }
 
@@ -91,6 +95,8 @@ async function doRegister(){
   }
   if(pass.length<6){ showErr(err,t('auth.err.password.corta')); return; }
 
+  showAuthLoader();
+
   const { createUserWithEmailAndPassword } = window.firebaseAuthFns;
   const { doc, setDoc } = window.firebaseDbFns;
 
@@ -122,6 +128,8 @@ async function doRegister(){
       showErr(err,t('auth.err.generico.registro'));
       console.error('Error en registro:', e);
     }
+  }finally{
+    hideAuthLoader();
   }
 }
 
@@ -226,3 +234,25 @@ window.onload = function(){
     updateHeaderAuthState();
   }
 };
+
+let authLoaderLottie = null;
+
+function showAuthLoader(){
+  const overlay = document.getElementById('auth-loading-overlay');
+  if(!overlay) return;
+  overlay.classList.add('open');
+  if(!authLoaderLottie && window.lottie){
+    authLoaderLottie = lottie.loadAnimation({
+      container: document.getElementById('auth-loading-lottie'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'https://lottie.host/ee1a593b-9fe2-4ac9-8b20-8cd7bc5266c6/CVroXxL0aA.json'
+    });
+  }
+}
+
+function hideAuthLoader(){
+  const overlay = document.getElementById('auth-loading-overlay');
+  if(overlay) overlay.classList.remove('open');
+}
