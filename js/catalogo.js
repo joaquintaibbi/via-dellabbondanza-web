@@ -190,6 +190,24 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
   document.getElementById('modal-name').textContent = w['Nombre']||'';
   document.getElementById('modal-meta').textContent = `${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}`;
   document.getElementById('modal-precio').textContent = `€${precio} / ${t('modal.precio.unidad')}`;
+  const capacidad = w['Capacidad'] || '';
+  const capacidadEl = document.getElementById('modal-capacidad');
+  if(capacidadEl){
+    capacidadEl.textContent = capacidad ? `${t('modal.capacidad')}: ${capacidad}` : '';
+    capacidadEl.style.display = capacidad ? 'block' : 'none';
+  }
+
+  const puntajeRaw = w['Puntaje_Fuente'] || '';
+  const puntajeEl = document.getElementById('modal-puntaje');
+  if(puntajeEl){
+    if(puntajeRaw){
+      puntajeEl.textContent = `⭐ ${traducirPuntaje(puntajeRaw)}`;
+      puntajeEl.style.display = 'inline-block';
+    }else{
+      puntajeEl.textContent = '';
+      puntajeEl.style.display = 'none';
+    }
+  }
   document.getElementById('modal-qty').value = 1;
   document.getElementById('modal-add').onclick = () => {
     const qty = parseInt(document.getElementById('modal-qty').value)||1;

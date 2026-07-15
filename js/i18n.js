@@ -64,6 +64,10 @@ const TRANSLATIONS = {
     'modal.add': "Aggiungi all'ordine",
     'modal.precio.unidad': 'bottiglia',
     'modal.desde': 'Dal',
+    'modal.capacidad': 'Formato',
+    'modal.puntaje.unidad': 'punti',
+    'cart.caja.max': 'Cassa completa',
+    'cart.caja.disponible': 'Cassa da',
     'verify.banner': 'Verifica la tua email per confermare gli ordini.',
     'verify.resend': 'Reinvia email',
     'auth.err.campos': 'Compila tutti i campi.',
@@ -146,6 +150,10 @@ const TRANSLATIONS = {
     'modal.add': 'Agregar al pedido',
     'modal.precio.unidad': 'botella',
     'modal.desde': 'Desde',
+    'modal.capacidad': 'Formato',
+    'modal.puntaje.unidad': 'puntos',
+    'cart.caja.max': 'Caja completa',
+    'cart.caja.disponible': 'Caja de',
     'verify.banner': 'Verificá tu email para poder confirmar pedidos.',
     'verify.resend': 'Reenviar email',
     'auth.err.campos': 'Completá todos los campos.',
@@ -228,6 +236,10 @@ const TRANSLATIONS = {
     'modal.add': 'Add to order',
     'modal.precio.unidad': 'bottle',
     'modal.desde': 'Since',
+    'modal.capacidad': 'Format',
+    'modal.puntaje.unidad': 'points',
+    'cart.caja.max': 'Full case',
+    'cart.caja.disponible': 'Case of',
     'verify.banner': 'Verify your email to be able to confirm orders.',
     'verify.resend': 'Resend email',
     'auth.err.campos': 'Please fill in all fields.',
@@ -300,4 +312,13 @@ function updateLangSelectorUI(){
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.lang === currentLang);
   });
+}
+
+function traducirPuntaje(textoOriginal){
+  if(!textoOriginal) return '';
+  const match = textoOriginal.match(/^(\d+)\s*punti\s+(.+)$/i);
+  if(!match) return textoOriginal; // certificaciones/medallas: se dejan tal cual, en italiano
+  const numero = match[1];
+  const critico = match[2];
+  return `${numero} ${t('modal.puntaje.unidad')} ${critico}`;
 }
