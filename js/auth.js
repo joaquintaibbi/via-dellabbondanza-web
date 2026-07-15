@@ -47,6 +47,8 @@ async function doLogin(){
   }catch(e){
     if(e.code === 'auth/invalid-credential' || e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found'){
       showErr(err,t('auth.err.credenciales'));
+    }else if(e.code === 'auth/too-many-requests'){
+      showErr(err,t('auth.err.demasiados.intentos'));
     }else{
       showErr(err,t('auth.err.generico.login'));
       console.error('Error en login:', e);
