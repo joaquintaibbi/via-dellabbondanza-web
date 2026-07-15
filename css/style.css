@@ -565,3 +565,15 @@ header{
   font-size:13px; color:var(--muted);
   letter-spacing:.5px;
 }
+.modal-unidad-select{
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:14px;
+  font-family:'Inter',sans-serif;
+  color:var(--text);
+  background:var(--surface);
+  cursor:pointer;
+  outline:none;
+}
+.modal-unidad-select:focus{ border-color:var(--wine); }

@@ -210,10 +210,38 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
       puntajeEl.style.display = 'none';
     }
   }
+  const modalUnidadSelect = document.getElementById('modal-unidad-select');
+  if(w['Botellas_Por_Caja']){
+    modalUnidadSelect.innerHTML = `
+      <option value="unidad">${t('cart.unidad')}</option>
+      <option value="caja">${t('cart.caja')} x${w['Botellas_Por_Caja']}</option>
+    `;
+    modalUnidadSelect.style.display = 'inline-block';
+  }else{
+    modalUnidadSelect.innerHTML = '';
+    modalUnidadSelect.style.display = 'none';
+  }
+
   document.getElementById('modal-qty').value = 1;
   document.getElementById('modal-add').onclick = () => {
     const qty = parseInt(document.getElementById('modal-qty').value)||1;
+    const valorElegido = modalUnidadSelect.value || 'unidad';
+
+    let tarjetaSelect = document.getElementById(`unidad-${id}`);
+    let esTemporal = false;
+    if(!tarjetaSelect){
+      tarjetaSelect = document.createElement('select');
+      tarjetaSelect.id = `unidad-${id}`;
+      tarjetaSelect.style.display = 'none';
+      document.body.appendChild(tarjetaSelect);
+      tarjetaSelect.innerHTML = `<option value="unidad">u</option><option value="caja">c</option>`;
+      esTemporal = true;
+    }
+    tarjetaSelect.value = valorElegido;
+
     for(let i=0; i<qty; i++) addToCart(id);
+
+    if(esTemporal) tarjetaSelect.remove();
     closeWineModal();
   };
   document.getElementById('modal-add').disabled = agotado;
