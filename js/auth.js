@@ -202,8 +202,9 @@ function renderVerificationBanner(){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 window.onload = function(){
   applyTranslations();
-  checkAgeGate();
   loadCatalog();
+  checkAgeGate();
+  checkCookieBanner();
   const session = getSession();
   if(session){
     startApp(session);
@@ -271,4 +272,14 @@ function confirmarEdad(esMayor){
       <p>${t('age.rechazo')}</p>
     </div>`;
   }
+}
+function checkCookieBanner(){
+  const yaCerrado = localStorage.getItem('vda_cookie_ok');
+  if(yaCerrado === 'yes') return;
+  document.getElementById('cookie-banner').classList.add('open');
+}
+
+function cerrarCookieBanner(){
+  localStorage.setItem('vda_cookie_ok', 'yes');
+  document.getElementById('cookie-banner').classList.remove('open');
 }
