@@ -583,3 +583,9 @@ header{
   margin-top:6px; text-decoration:none;
 }
 .forgot-pass-link:hover{ color:var(--wine); text-decoration:underline; }
+.empty-copa{
+  width:120px;
+  height:120px;
+  margin:0 auto 16px;
+  display:block;
+}

@@ -97,7 +97,11 @@ function renderCatalog(list){
   const el = document.getElementById('catalog');
   document.getElementById('results-count').textContent = `${list.length} ${t('catalog.count')}`;
   if(!list.length){
-    el.innerHTML='<div class="empty-state"><h3>Sin resultados</h3><p>Probá con otros filtros.</p></div>';
+el.innerHTML=`<div class="empty-state">
+  <img src="assets/copacargando.svg" class="empty-copa" alt=""/>
+  <h3>${t('catalog.empty.title')}</h3>
+  <p>${t('catalog.empty.body')}</p>
+</div>`;
     return;
   }
 
