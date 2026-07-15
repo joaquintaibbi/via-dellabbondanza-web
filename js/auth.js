@@ -96,6 +96,10 @@ async function doRegister(){
     return;
   }
   if(pass.length<6){ showErr(err,t('auth.err.password.corta')); return; }
+  if(!document.getElementById('reg-privacy-check').checked){
+    showErr(err,t('privacy.err'));
+    return;
+  }
 
   showAuthLoader();
 

@@ -640,3 +640,15 @@ header{
   cursor:pointer;
 }
 .age-gate-no:hover{ background:var(--light); }
+.privacy-checkbox-row{
+  display:flex; align-items:flex-start; gap:8px;
+  margin:4px 0 8px;
+}
+.privacy-checkbox-row input[type="checkbox"]{
+  margin-top:2px; cursor:pointer;
+}
+.privacy-checkbox-row label{
+  font-size:12px; color:var(--muted); line-height:1.4;
+  cursor:pointer;
+}
+.privacy-checkbox-row a{ color:var(--wine); text-decoration:underline; }
