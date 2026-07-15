@@ -122,22 +122,20 @@ function sendOrder(){
   const u = currentUser;
   const fecha = new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
 
-const msg = `🍷 *${t('wa.titulo')}*
-━━━━━━━━━━━━━━━━━━━━
-*${t('wa.restaurante')}* ${u.restaurant}
-*${t('wa.razonsocial')}* ${u.razonsocial}
-*${t('wa.direccion')}* ${u.address}, ${u.city}
-*${t('wa.piva')}* ${u.piva}
-*${t('wa.telefono')}* ${u.phone}
-*${t('wa.email')}* ${u.email}
+const msg = `*${t('wa.titulo')}*
 
-📦 *${t('wa.pedido')}*
+${t('wa.restaurante')} ${u.restaurant}
+${t('wa.razonsocial')} ${u.razonsocial}
+${t('wa.direccion')} ${u.address}, ${u.city}
+${t('wa.piva')} ${u.piva}
+${t('wa.telefono')} ${u.phone}
+${t('wa.email')} ${u.email}
+
+*${t('wa.pedido')}*
 ${lines}
 
-💰 *${t('wa.total')} €${total.toFixed(2)}*
-
-🗓️ ${t('wa.fecha')} ${fecha}
-_${t('wa.footer')}_`;
+*${t('wa.total')} €${total.toFixed(2)}*
+${t('wa.fecha')} ${fecha}`;
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   cart = {};
