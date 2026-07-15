@@ -159,12 +159,12 @@ function wineCard(w){
       <div class="wine-meta" onclick="openWineModal('${id}')">${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}</div>
       <div class="wine-footer">
         <div class="wine-price">€${precio} <span>/botella</span></div>
-        ${w['Botellas_Por_Caja'] ? `
-        <select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
-          <option value="unidad">${t('cart.unidad')}</option>
-          <option value="caja">${t('cart.caja')} x${w['Botellas_Por_Caja']}</option>
-        </select>
-        ` : ''}
+       ${w['Botellas_Por_Caja'] && parseInt(w['Botellas_Por_Caja']) > 1 ? `
+<select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
+  <option value="unidad">${t('cart.unidad')}</option>
+  <option value="caja">${t('cart.caja')} x${w['Botellas_Por_Caja']}</option>
+</select>
+` : ''}
         <button class="add-btn" ${agotado?'disabled':''} onclick="event.stopPropagation(); addToCart('${id}')" title="Agregar al pedido">+</button>
       </div>
     </div>
@@ -218,7 +218,7 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
     }
   }
   const modalUnidadSelect = document.getElementById('modal-unidad-select');
-  if(w['Botellas_Por_Caja']){
+if(w['Botellas_Por_Caja'] && parseInt(w['Botellas_Por_Caja']) > 1){
     modalUnidadSelect.innerHTML = `
       <option value="unidad">${t('cart.unidad')}</option>
       <option value="caja">${t('cart.caja')} x${w['Botellas_Por_Caja']}</option>
