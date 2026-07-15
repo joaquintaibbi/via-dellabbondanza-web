@@ -122,22 +122,22 @@ function sendOrder(){
   const u = currentUser;
   const fecha = new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'2-digit',year:'numeric'});
 
-  const msg = `🍷 *NUEVO PEDIDO*
+const msg = `🍷 *${t('wa.titulo')}*
 ━━━━━━━━━━━━━━━━━━━━
-*Restaurante:* ${u.restaurant}
-*Razón social:* ${u.razonsocial}
-*Dirección:* ${u.address}, ${u.city}
-*P.IVA:* ${u.piva}
-*Teléfono:* ${u.phone}
-*Email:* ${u.email}
+*${t('wa.restaurante')}* ${u.restaurant}
+*${t('wa.razonsocial')}* ${u.razonsocial}
+*${t('wa.direccion')}* ${u.address}, ${u.city}
+*${t('wa.piva')}* ${u.piva}
+*${t('wa.telefono')}* ${u.phone}
+*${t('wa.email')}* ${u.email}
 
-📦 *PEDIDO:*
+📦 *${t('wa.pedido')}*
 ${lines}
 
-💰 *TOTAL: €${total.toFixed(2)}*
+💰 *${t('wa.total')} €${total.toFixed(2)}*
 
-🗓️ Fecha: ${fecha}
-_Pedido enviado desde catálogo web_`;
+🗓️ ${t('wa.fecha')} ${fecha}
+_${t('wa.footer')}_`;
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   cart = {};
