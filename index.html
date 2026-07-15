@@ -47,6 +47,7 @@
  <div class="form-group">
  <label data-i18n="auth.label.password">Contraseña</label>
 <input type="password" id="login-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()" data-i18n-placeholder="auth.placeholder.password"/>
+<a href="#" class="forgot-pass-link" onclick="event.preventDefault(); doPasswordReset();" data-i18n="auth.olvide.clave">¿Olvidaste tu contraseña?</a>
  </div>
  <button class="btn-primary" onclick="doLogin()" data-i18n="auth.login.btn">Acceder al catálogo →</button>
  </div>
