@@ -127,3 +127,28 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;}
   background:transparent;color:#fff;
   border:1px solid rgba(255,255,255,.4);
 }
+/* ── LANG SELECTOR ── */
+.hero-header{
+  position:absolute;
+  top:30px;left:40px;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.hero-lang{
+  display:flex;gap:6px;
+}
+.lang-btn{
+  background:rgba(255,255,255,.15);
+  border:1px solid rgba(255,255,255,.3);
+  color:#fff;padding:4px 10px;
+  border-radius:4px;font-size:11px;
+  font-weight:600;cursor:pointer;
+  font-family:'Inter',sans-serif;
+  transition:background .2s;
+}
+.lang-btn:hover,.lang-btn.active{
+  background:var(--wine);
+  border-color:var(--wine);
+}
