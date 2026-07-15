@@ -198,6 +198,7 @@ function renderVerificationBanner(){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 window.onload = function(){
   applyTranslations();
+  checkAgeGate();
   loadCatalog();
   const session = getSession();
   if(session){
@@ -249,5 +250,21 @@ async function doPasswordReset(){
     }else{
       alert(t('auth.reset.enviado'));
     }
+  }
+}
+function checkAgeGate(){
+  const yaConfirmado = localStorage.getItem('vda_age_ok');
+  if(yaConfirmado === 'yes') return;
+  document.getElementById('age-gate-overlay').classList.add('open');
+}
+
+function confirmarEdad(esMayor){
+  if(esMayor){
+    localStorage.setItem('vda_age_ok', 'yes');
+    document.getElementById('age-gate-overlay').classList.remove('open');
+  }else{
+    document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif;color:#333;">
+      <p>${t('age.rechazo')}</p>
+    </div>`;
   }
 }

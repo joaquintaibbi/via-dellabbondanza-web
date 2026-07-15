@@ -605,3 +605,38 @@ header{
   background:var(--wine);
   color:#fff;
 }
+#age-gate-overlay{
+  display:none;
+  position:fixed; inset:0; z-index:1000;
+  background:var(--wine);
+  align-items:center; justify-content:center;
+}
+#age-gate-overlay.open{ display:flex; }
+.age-gate-box{
+  background:var(--surface);
+  border-radius:16px;
+  padding:40px 32px;
+  max-width:380px;
+  text-align:center;
+  box-shadow:var(--shadow-lg);
+}
+.age-gate-icon{ font-size:48px; margin-bottom:16px; }
+.age-gate-box h2{
+  font-family:'Playfair Display',serif;
+  font-size:22px; color:var(--wine);
+  margin-bottom:12px;
+}
+.age-gate-box p{
+  font-size:13px; color:var(--muted);
+  line-height:1.5; margin-bottom:24px;
+}
+.age-gate-btns{
+  display:flex; flex-direction:column; gap:10px;
+}
+.age-gate-no{
+  background:none; border:1px solid var(--border);
+  color:var(--muted); padding:12px; border-radius:8px;
+  font-family:'Inter',sans-serif; font-size:13px;
+  cursor:pointer;
+}
+.age-gate-no:hover{ background:var(--light); }
