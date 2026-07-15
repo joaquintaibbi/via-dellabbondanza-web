@@ -96,6 +96,7 @@ const TRANSLATIONS = {
     'wa.total': 'TOTALE:',
     'wa.fecha': 'Data:',
     'wa.footer': 'Ordine inviato dal catalogo web',
+    'filter.reset': 'Azzera filtri',
   },
   es: {
     'auth.tab.login': 'Ingresar',
@@ -187,6 +188,7 @@ const TRANSLATIONS = {
     'wa.total': 'TOTAL:',
     'wa.fecha': 'Fecha:',
     'wa.footer': 'Pedido enviado desde catálogo web',
+    'filter.reset': 'Restablecer filtros',
   },
   en: {
     'auth.tab.login': 'Sign in',
@@ -278,6 +280,7 @@ const TRANSLATIONS = {
     'wa.total': 'TOTAL:',
     'wa.fecha': 'Date:',
     'wa.footer': 'Order sent from web catalog',
+    'filter.reset': 'Reset filters',
   }
 };
 

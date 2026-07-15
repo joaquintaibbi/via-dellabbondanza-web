@@ -82,6 +82,9 @@ function applyFilters(){
 
     return matchType && matchQ && matchUva && matchRegion && matchPrecio && matchBodega;
   });
+  const bodegaSelCheck = document.getElementById('filter-bodega').value;
+const hayFiltros = q || activeType !== 'all' || uvaSel || regionSel || bodegaSelCheck || precioMin > 0 || precioMaxInput;
+document.getElementById('reset-filters').style.display = hayFiltros ? 'inline-block' : 'none';
 
   renderCatalog(filtered);
 }
@@ -268,4 +271,20 @@ function poblarFiltroBodegas(){
     option.textContent = bodega;
     select.appendChild(option);
   });
+}
+function resetFilters(){
+  activeType = 'all';
+  activeFilters = { uva: null, pais: null, cosecha: null };
+  document.getElementById('filter-uva').value = '';
+document.getElementById('filter-region').value = '';
+document.getElementById('filter-bodega').value = '';
+document.getElementById('filter-precio-min').value = '';
+document.getElementById('filter-precio-max').value = '';
+  document.getElementById('search').value = '';
+  document.getElementById('clear-search').style.display = 'none';
+  document.querySelectorAll('#type-filters .pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.type === 'all');
+  });
+  document.getElementById('reset-filters').style.display = 'none';
+  applyFilters();
 }

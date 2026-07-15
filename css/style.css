@@ -589,3 +589,19 @@ header{
   margin:0 auto 16px;
   display:block;
 }
+/* ── RESET FILTERS ── */
+#reset-filters{
+  padding:7px 14px;
+  border:1px solid var(--wine);
+  border-radius:20px;
+  background:none;
+  font-family:'Inter',sans-serif;
+  font-size:12px;font-weight:500;
+  color:var(--wine);
+  cursor:pointer;
+  transition:all .2s;
+}
+#reset-filters:hover{
+  background:var(--wine);
+  color:#fff;
+}
