@@ -99,7 +99,7 @@ function renderCartItems(){
   }
 }
 
-function sendOrder(){
+function sendOrder(ventanaPreabierta){
   const items = Object.values(cart);
   if(!items.length){ alert(t('cart.err.vacio')); return; }
 
@@ -137,7 +137,12 @@ ${lines}
 *${t('wa.total')} €${total.toFixed(2)}*
 ${t('wa.fecha')} ${fecha}`;
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  const urlWA = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  if(ventanaPreabierta){
+    ventanaPreabierta.location.href = urlWA;
+  }else{
+    window.open(urlWA, '_blank');
+  }
   cart = {};
   updateCartUI();
   closeCart();

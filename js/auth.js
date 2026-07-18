@@ -19,6 +19,8 @@ async function doLogin(){
 
   if(!email||!pass){ showErr(err,t('auth.err.campos')); return; }
 
+  const ventanaWA = pendingOrderAfterLogin ? window.open('', '_blank') : null;
+
   showAuthLoader();
 
   const { signInWithEmailAndPassword } = window.firebaseAuthFns;
@@ -41,7 +43,7 @@ async function doLogin(){
 
     if(pendingOrderAfterLogin){
       pendingOrderAfterLogin = false;
-      sendOrder();
+      sendOrder(ventanaWA);
     }
 
   }catch(e){
@@ -101,6 +103,8 @@ async function doRegister(){
     return;
   }
 
+  const ventanaWA = pendingOrderAfterLogin ? window.open('', '_blank') : null;
+
   showAuthLoader();
 
   const { createUserWithEmailAndPassword } = window.firebaseAuthFns;
@@ -122,7 +126,7 @@ async function doRegister(){
 
     if(pendingOrderAfterLogin){
       pendingOrderAfterLogin = false;
-      sendOrder();
+      sendOrder(ventanaWA);
     }
 
   }catch(e){
@@ -202,6 +206,8 @@ function renderVerificationBanner(){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 window.onload = function(){
   applyTranslations();
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('bodega')) showAuthLoader();
   loadCatalog();
   checkAgeGate();
   checkCookieBanner();
