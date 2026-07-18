@@ -732,3 +732,7 @@ header{
   background:var(--wine); color:#fff; border-color:var(--wine);
 }
 .volver-mapa-link{ margin:16px 40px 0; }
+.cart-nota-envio{
+  font-size:12px; color:var(--muted);
+  text-align:center; margin:8px 0;
+}

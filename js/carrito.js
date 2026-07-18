@@ -135,7 +135,9 @@ ${t('wa.email')} ${u.email}
 ${lines}
 
 *${t('wa.total')} €${total.toFixed(2)}*
-${t('wa.fecha')} ${fecha}`;
+${t('wa.fecha')} ${fecha}
+
+${t('cart.nota.envio')}`;
 
   const urlWA = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   if(ventanaPreabierta){
