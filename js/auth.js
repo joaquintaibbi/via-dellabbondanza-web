@@ -75,6 +75,33 @@ function isValidPartitaIva(piva){
   }
   const checkDigit = (10 - (sum % 10)) % 10;
   return checkDigit === parseInt(clean[10], 10);
+
+}
+function isValidCodiceFiscale(cf){
+  if(!cf) return false;
+  cf = cf.toUpperCase().replace(/\s/g, '');
+  if(!/^[A-Z]{6}[0-9]{2}[A-EHLMPRST][0-9]{2}[A-Z][0-9]{3}[A-Z]$/.test(cf)) return false;
+
+  const dispari = {
+    '0':1,'1':0,'2':5,'3':7,'4':9,'5':13,'6':15,'7':17,'8':19,'9':21,
+    'A':1,'B':0,'C':5,'D':7,'E':9,'F':13,'G':15,'H':17,'I':19,'J':21,
+    'K':2,'L':4,'M':18,'N':20,'O':11,'P':3,'Q':6,'R':8,'S':12,'T':14,
+    'U':16,'V':10,'W':22,'X':25,'Y':24,'Z':23
+  };
+  const pari = {
+    '0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,
+    'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7,'I':8,'J':9,
+    'K':10,'L':11,'M':12,'N':13,'O':14,'P':15,'Q':16,'R':17,'S':18,'T':19,
+    'U':20,'V':21,'W':22,'X':23,'Y':24,'Z':25
+  };
+
+  let suma = 0;
+  for(let i=0; i<15; i++){
+    const ch = cf[i];
+    suma += (i % 2 === 0) ? dispari[ch] : pari[ch];
+  }
+  const letraControl = String.fromCharCode(65 + (suma % 26));
+  return letraControl === cf[15];
 }
 
 async function doRegister(){
@@ -117,7 +144,9 @@ async function doRegister(){
     const { sendEmailVerification } = window.firebaseAuthFns;
     sendEmailVerification(credential.user).catch(e => console.warn('No se pudo enviar el mail de verificación:', e));
 
-    const user = {restaurant,razonsocial,address,city,piva,email,phone};
+    const tipoDocumento = document.getElementById('reg-tipo-documento').value;
+const piva = tipoDocumento === 'empresa' ? document.getElementById('reg-piva').value.trim() : document.getElementById('reg-cf').value.trim().toUpperCase();
+const user = {restaurant,razonsocial,address,city,piva,email,phone,tipoDocumento};
 
     await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
 
@@ -288,4 +317,9 @@ function checkCookieBanner(){
 function cerrarCookieBanner(){
   localStorage.setItem('vda_cookie_ok', 'yes');
   document.getElementById('cookie-banner').classList.remove('open');
+}
+function cambiarTipoDocumento(){
+  const tipo = document.getElementById('reg-tipo-documento').value;
+  document.getElementById('grupo-piva').style.display = tipo === 'empresa' ? 'block' : 'none';
+  document.getElementById('grupo-cf').style.display = tipo === 'particular' ? 'block' : 'none';
 }

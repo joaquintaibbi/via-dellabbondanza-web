@@ -58,7 +58,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   opacity:.15;font-size:80px;
 }
 .auth-right{
-  width:50%;display:flex;align-items:center;justify-content:center;
+  width:50%;
   padding:60px;
 }
 .auth-box{width:100%;max-width:400px;}

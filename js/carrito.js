@@ -127,7 +127,7 @@ const msg = `*${t('wa.titulo')}*
 ${t('wa.restaurante')} ${u.restaurant}
 ${t('wa.razonsocial')} ${u.razonsocial}
 ${t('wa.direccion')} ${u.address}, ${u.city}
-${t('wa.piva')} ${u.piva}
+${u.tipoDocumento === 'particular' ? t('auth.label.cf') : t('wa.piva')} ${u.piva}
 ${t('wa.telefono')} ${u.phone}
 ${t('wa.email')} ${u.email}
 

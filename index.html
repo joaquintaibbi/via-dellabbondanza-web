@@ -69,15 +69,26 @@
 <input type="text" id="reg-address" placeholder="Via Roma 45" data-i18n-placeholder="auth.placeholder.direccion"/>
  </div>
  <div class="form-row">
- <div class="form-group">
+<div class="form-group">
 <label data-i18n="auth.label.ciudad">Ciudad</label>
 <input type="text" id="reg-city" placeholder="Milano" data-i18n-placeholder="auth.placeholder.ciudad"/>
- </div>
- <div class="form-group">
+</div>
+</div>
+<div class="form-group">
+<label data-i18n="auth.label.tipodoc">Tipo de documento</label>
+<select id="reg-tipo-documento" onchange="cambiarTipoDocumento()">
+  <option value="empresa" data-i18n="auth.tipodoc.empresa">Empresa (Partita IVA)</option>
+  <option value="particular" data-i18n="auth.tipodoc.particular">Particular (Codice Fiscale)</option>
+</select>
+</div>
+<div id="grupo-piva" class="form-group">
 <label data-i18n="auth.label.piva">Partita IVA</label>
 <input type="text" id="reg-piva" placeholder="IT12345678901" data-i18n-placeholder="auth.placeholder.piva"/>
- </div>
- </div>
+</div>
+<div id="grupo-cf" class="form-group" style="display:none;">
+<label data-i18n="auth.label.cf">Codice Fiscale</label>
+<input type="text" id="reg-cf" placeholder="RSSMRA85M01H501Z" data-i18n-placeholder="auth.placeholder.cf"/>
+</div>
  <div class="form-row">
  <div class="form-group">
  <label data-i18n="auth.label.email">Email</label>
