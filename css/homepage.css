@@ -198,3 +198,27 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;}
   from{ transform:translateX(0); }
   to{ transform:translateX(-50%); }
 }
+@media (max-width: 768px) {
+  .hero-header { 
+    top: 16px; 
+    left: 16px; 
+    gap: 10px;
+  }
+  .hero-logo { width: 60px; }
+  .hero-lang { gap: 4px; }
+  .lang-btn { padding: 3px 8px; font-size: 10px; }
+  .hero-title { font-size: 26px; }
+  .hero-tagline { font-size: 10px; letter-spacing: 2px; padding: 0 16px; }
+  .hero-btn { padding: 12px 28px; font-size: 12px; }
+  .hero-content { margin-top: 140px; }
+  
+  .about { flex-direction: column; padding: 40px 24px; gap: 32px; }
+  .about-image { height: 240px; }
+  .about-title { font-size: 24px; }
+  
+  .contact { padding: 48px 24px; }
+  .contact-title { font-size: 26px; }
+  .contact-body { font-size: 13px; }
+  .contact-btns { flex-direction: column; align-items: center; }
+  .contact-btn { width: 100%; justify-content: center; }
+}
