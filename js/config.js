@@ -27,3 +27,4 @@ function getSession(){ return JSON.parse(localStorage.getItem('vda_session')||'n
 function setSession(u){ localStorage.setItem('vda_session', JSON.stringify(u)); }
 function clearSession(){ localStorage.removeItem('vda_session'); }
 
+ 
