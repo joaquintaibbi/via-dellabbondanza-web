@@ -42,8 +42,18 @@ function loadCatalog(){
       }).filter(w => w['Nombre']);
       filtered = [...wines];
       poblarFiltroBodegas();
-      renderDestacados();
-      renderCatalog(filtered);
+
+      const params = new URLSearchParams(window.location.search);
+      const bodegaURL = params.get('bodega');
+      if(bodegaURL){
+        document.getElementById('filter-bodega').value = bodegaURL;
+        applyFilters();
+        document.getElementById('catalogo-completo-screen').style.display = 'block';
+        setTimeout(() => hideAuthLoader(), 400);
+      }else{
+        document.getElementById('mapa-screen').style.display = 'block';
+        renderCatalog(filtered);
+      }
     },
     error: function(){ renderError(); }
   });
@@ -287,4 +297,27 @@ document.getElementById('filter-precio-max').value = '';
   });
   document.getElementById('reset-filters').style.display = 'none';
   applyFilters();
+}
+function seleccionarRegionMapa(regionValue, nombre){
+  document.getElementById('filter-bodega').value = '';
+  document.getElementById('filter-region').value = regionValue;
+  applyFilters();
+  document.getElementById('mapa-screen').style.display = 'none';
+  document.getElementById('catalogo-completo-screen').style.display = 'block';
+  window.scrollTo({top: 0});
+}
+
+function verCatalogoCompleto(){
+  document.getElementById('filter-bodega').value = '';
+  document.getElementById('filter-region').value = '';
+  applyFilters();
+  document.getElementById('mapa-screen').style.display = 'none';
+  document.getElementById('catalogo-completo-screen').style.display = 'block';
+  window.scrollTo({top: 0});
+}
+
+function volverAlMapa(){
+  document.getElementById('catalogo-completo-screen').style.display = 'none';
+  document.getElementById('mapa-screen').style.display = 'block';
+  window.scrollTo({top: 0});
 }

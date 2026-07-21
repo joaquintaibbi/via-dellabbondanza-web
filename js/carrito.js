@@ -99,7 +99,7 @@ function renderCartItems(){
   }
 }
 
-function sendOrder(){
+function sendOrder(ventanaPreabierta){
   const items = Object.values(cart);
   if(!items.length){ alert(t('cart.err.vacio')); return; }
 
@@ -127,7 +127,7 @@ const msg = `*${t('wa.titulo')}*
 ${t('wa.restaurante')} ${u.restaurant}
 ${t('wa.razonsocial')} ${u.razonsocial}
 ${t('wa.direccion')} ${u.address}, ${u.city}
-${t('wa.piva')} ${u.piva}
+${u.tipoDocumento === 'particular' ? t('auth.label.cf') : t('wa.piva')} ${u.piva}
 ${t('wa.telefono')} ${u.phone}
 ${t('wa.email')} ${u.email}
 
@@ -135,9 +135,16 @@ ${t('wa.email')} ${u.email}
 ${lines}
 
 *${t('wa.total')} €${total.toFixed(2)}*
-${t('wa.fecha')} ${fecha}`;
+${t('wa.fecha')} ${fecha}
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+${t('cart.nota.envio')}`;
+
+  const urlWA = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  if(ventanaPreabierta){
+    ventanaPreabierta.location.href = urlWA;
+  }else{
+    window.open(urlWA, '_blank');
+  }
   cart = {};
   updateCartUI();
   closeCart();

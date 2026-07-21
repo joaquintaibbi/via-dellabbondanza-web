@@ -58,7 +58,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-h
   opacity:.15;font-size:80px;
 }
 .auth-right{
-  width:50%;display:flex;align-items:center;justify-content:center;
+  width:50%;
   padding:60px;
 }
 .auth-box{width:100%;max-width:400px;}
@@ -670,4 +670,69 @@ header{
   border:none; padding:8px 18px; border-radius:6px;
   font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
   cursor:pointer; white-space:nowrap;
+}
+#mapa-section{
+  padding:24px 40px 32px;
+  background:var(--light);
+  border-bottom:1px solid var(--border);
+}
+.mapa-guia{
+  text-align:center; font-size:13px; color:var(--muted);
+  margin:0 0 16px;
+}
+.mapa-contenedor{
+  max-width:900px; margin:0 auto;
+  display:flex; gap:32px; align-items:flex-start;
+}
+.mapa-contenedor svg{
+  flex:1 1 400px; min-width:0; width:100%; max-height:75vh; height:auto; display:block;
+}
+.provincia{ stroke:var(--bg); stroke-width:1.5; }
+.provincia.sin-vino{ fill:var(--border); }
+.provincia.con-vino{ fill:var(--gold); cursor:pointer; transition:fill .15s; }
+.provincia.con-vino:hover{ fill:var(--wine); }
+.etiqueta{
+  font-family:'Cinzel',serif; font-size:9px; font-weight:900;
+  letter-spacing:.5px; text-transform:uppercase;
+  fill:#3D0F17 !important; text-anchor:middle; pointer-events:none;
+  stroke:#3D0F17; stroke-width:.4px;
+}
+.mapa-panel{ flex:0 0 220px; }
+#mapa-resultado{
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:10px; padding:16px;
+}
+#mapa-resultado h3{
+  margin:0 0 6px; color:var(--wine);
+  font-family:'Playfair Display',serif; font-size:19px;
+}
+#mapa-resultado p{ margin:0; color:var(--muted); font-size:13px; }
+.mapa-paises{ margin-top:16px; }
+.mapa-paises-label{ font-size:11px; color:var(--muted); letter-spacing:.5px; margin:0 0 8px; }
+.mapa-paises button{
+  display:block; width:100%; text-align:left; margin-bottom:6px;
+  padding:8px 10px; background:var(--surface); border:1px solid var(--border);
+  border-radius:6px; cursor:pointer; font-size:13px; font-family:'Inter',sans-serif;
+  color:var(--text);
+}
+.mapa-paises button:hover{ border-color:var(--gold); }
+@media (max-width:640px){
+  .mapa-contenedor{ flex-direction:column; }
+  .mapa-panel{ width:100%; }
+  .mapa-contenedor svg{ flex:none; width:100%; }
+}
+.volver-mapa-link, .mapa-guia a{
+  display:inline-block;
+  color:var(--wine); text-decoration:none;
+  font-weight:600; font-size:13px;
+  border:1px solid var(--border); border-radius:20px;
+  padding:6px 16px; transition:all .15s;
+}
+.volver-mapa-link:hover, .mapa-guia a:hover{
+  background:var(--wine); color:#fff; border-color:var(--wine);
+}
+.volver-mapa-link{ margin:16px 40px 0; }
+.cart-nota-envio{
+  font-size:12px; color:var(--muted);
+  text-align:center; margin:8px 0;
 }
