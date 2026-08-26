@@ -2,6 +2,11 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8"/>
+<script>
+  if (localStorage.getItem('vda_age_ok') !== 'yes') {
+    window.location.replace('homepage.html');
+  }
+</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C23Y322FEK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
