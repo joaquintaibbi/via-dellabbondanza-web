@@ -2,6 +2,15 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8"/>
+<script>
+  if (localStorage.getItem('vda_age_ok') !== 'yes') {
+    document.documentElement.classList.add('age-gate-pending');
+  }
+</script>
+<style>
+  html.age-gate-pending #app-screen{ display:none; }
+  html.age-gate-pending #age-gate-overlay{ display:flex; }
+</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C23Y322FEK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
