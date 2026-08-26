@@ -302,6 +302,7 @@ function confirmarEdad(esMayor){
   if(esMayor){
     localStorage.setItem('vda_age_ok', 'yes');
     document.getElementById('age-gate-overlay').classList.remove('open');
+    window.location.href = 'homepage.html';
   }else{
     document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif;color:#333;">
       <p>${t('age.rechazo')}</p>
