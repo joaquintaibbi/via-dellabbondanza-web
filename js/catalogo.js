@@ -156,6 +156,7 @@ function wineCard(w){
   const isNew = w['Nuevo']==='Sí';
   const img = w['URL Foto'] ? `<img src="${w['URL Foto']}" alt="${w['Nombre']}" loading="lazy" onerror="this.parentNode.innerHTML='<span class=wine-img-placeholder>🍷</span>'"/>` : '<span class="wine-img-placeholder">🍷</span>';
   const id = w['ID'];
+  const logueado = !!currentUser;
 
   return `<div class="wine-card">
     <div class="wine-img" onclick="openWineModal('${id}')">
@@ -168,7 +169,7 @@ function wineCard(w){
       <div class="wine-name" onclick="openWineModal('${id}')">${w['Nombre']}</div>
       <div class="wine-meta" onclick="openWineModal('${id}')">${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}</div>
       <div class="wine-footer">
-        <div class="wine-price">€${precio} <span>/botella</span></div>
+       ${logueado ? `<div class="wine-price">€${precio} <span>/botella</span></div>` : ''}
        ${w['Botellas_Por_Caja'] && parseInt(w['Botellas_Por_Caja']) > 1 ? `
 <select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
   <option value="unidad">${t('cart.unidad')}</option>
@@ -208,7 +209,9 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
   document.getElementById('modal-bodega').textContent = w['Bodega']||'';
   document.getElementById('modal-name').textContent = w['Nombre']||'';
   document.getElementById('modal-meta').textContent = `${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}`;
-  document.getElementById('modal-precio').textContent = `€${precio} / ${t('modal.precio.unidad')}`;
+  const logueado = !!currentUser;
+  const precioEl = document.getElementById('modal-precio');
+  precioEl.textContent = logueado ? `€${precio} / ${t('modal.precio.unidad')}` : t('catalog.precio.oculto');
   const capacidad = w['Capacidad'] || '';
   const capacidadEl = document.getElementById('modal-capacidad');
   if(capacidadEl){

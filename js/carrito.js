@@ -40,8 +40,10 @@ function changeQty(id, delta){
 function updateCartUI(){
   const total = Object.values(cart).reduce((s,i)=>s+i.qty,0);
   document.getElementById('cart-count').textContent = total;
+  if(document.getElementById('cart-drawer').classList.contains('open')){
+    renderCartItems();
+  }
 }
-
 function openCart(){
   renderCartItems();
   document.getElementById('cart-overlay').classList.add('open');
@@ -75,7 +77,7 @@ function renderCartItems(){
       <div class="cart-item-img">${img}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${item.wine['Nombre']} <span class="cart-item-tipo">(${etiqueta})</span></div>
-        <div class="cart-item-bodega">${item.wine['Bodega']||''} · €${(precio*botellas).toFixed(2)}/${item.esCaja?'caja':'u'}</div>
+        <div class="cart-item-bodega">${item.wine['Bodega']||''}${currentUser ? ` · €${(precio*botellas).toFixed(2)}/${item.esCaja?'caja':'u'}` : ''}</div>
         <div class="cart-item-controls">
           <button class="qty-btn" onclick="changeQty('${key}',-1)">−</button>
           <span class="qty-display">${item.qty}</span>
@@ -83,11 +85,10 @@ function renderCartItems(){
           <button class="remove-btn" onclick="removeFromCart('${key}')">🗑</button>
         </div>
       </div>
-      <div class="cart-item-price">€${subtotal.toFixed(2)}</div>
+      <div class="cart-item-price">${currentUser ? `€${subtotal.toFixed(2)}` : `<span class="precio-oculto-chico" data-i18n="catalog.precio.oculto">Precio al registrarte</span>`}</div>
     </div>`;
   }).join('');
-
-  document.getElementById('cart-total').textContent = `€${total.toFixed(2)}`;
+    document.getElementById('cart-total').textContent = currentUser ? `€${total.toFixed(2)}` : '';
 
   // Client info
   if(currentUser){

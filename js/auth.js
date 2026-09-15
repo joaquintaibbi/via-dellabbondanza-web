@@ -193,6 +193,9 @@ function startApp(user){
   closeAuthModal();
   updateHeaderAuthState();
   renderVerificationBanner();
+  if(typeof filtered !== 'undefined' && typeof renderCatalog === 'function'){
+    renderCatalog(filtered);
+  }
 }
 
 function updateHeaderAuthState(){
@@ -208,7 +211,7 @@ function updateHeaderAuthState(){
 }
 
 function headerAuthAction(){
-  if(currentUser){ doLogout(); } else { openAuthModal(); }
+  if(currentUser){ doLogout(); } else { pendingOrderAfterLogin = false; openAuthModal(); }
 }
 
 function openAuthModal(){
