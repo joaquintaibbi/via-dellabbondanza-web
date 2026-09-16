@@ -2,6 +2,15 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8"/>
+<script>
+  if (localStorage.getItem('vda_age_ok') !== 'yes') {
+    document.documentElement.classList.add('age-gate-pending');
+  }
+</script>
+<style>
+  html.age-gate-pending #app-screen{ display:none; }
+  html.age-gate-pending #age-gate-overlay{ display:flex; }
+</style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-C23Y322FEK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -172,6 +181,7 @@
 <path class="provincia con-vino" onclick="seleccionarRegionMapa('canelones|maldonado|montevideo|chapeu', 'Uruguay')" d="M245.4,215.3 L253.9,213.6 L267.1,226.3 L272.0,225.8 L295.9,245.4 L303.5,256.5 L297.7,264.3 L301.4,273.6 L295.7,283.9 L280.8,293.0 L271.1,289.8 L263.9,291.5 L251.8,284.5 L242.8,285.0 L234.8,275.9 L235.8,265.3 L238.7,261.7 L238.5,245.3 L245.4,215.3 Z"/>
 <text class="etiqueta" x="100.9" y="287.7" onclick="seleccionarRegionMapa('mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael', 'Mendoza')">Mendoza</text>
 <text class="etiqueta" x="150.8" y="132" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Salta')">Salta</text>
+<text class="etiqueta" x="155.0" y="340.0" onclick="seleccionarRegionMapa('neuquén|neuquen|chañar|chanar', 'Neuquén')">Neuquén</text>
 <text class="etiqueta" x="119.0" y="382.3" onclick="seleccionarRegionMapa('patagonia|sarmiento|chubut|negro', 'Río Negro')">Río Negro</text>
 <text class="etiqueta" x="101.8" y="437.9" onclick="seleccionarRegionMapa('patagonia|sarmiento|chubut|negro', 'Chubut')">Chubut</text>
 <text class="etiqueta" x="138.2" y="96" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Jujuy')">Jujuy</text>
@@ -222,6 +232,12 @@
 <option value="carménère">Carménère</option>
 <option value="petit verdot">Petit Verdot</option>
 <option value="albariño">Albariño</option>
+<option value="criolla">Criolla</option>
+<option value="tempranillo">Tempranillo</option>
+<option value="primitivo">Primitivo</option>
+<option value="marselan">Marselan</option>
+<option value="blanc de malbec">Blanc de Malbec</option>
+<option value="blend">Blend</option>
 </select>
 <select id="filter-bodega" onchange="applyFilters()">
 <option value="" data-i18n="filter.bodega">Bodega</option>
@@ -230,7 +246,8 @@
 <option value="" data-i18n="filter.region">Región</option>
 <option value="mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael">Mendoza</option>
 <option value="salta|cafayate|calchaqu|jujuy">Salta</option>
-<option value="patagonia|sarmiento|chubut|negro">Patagonia</option>
+<option value="patagonia|sarmiento|chubut|negro|río negro|rio negro">Patagonia</option>
+<option value="neuquén|neuquen|chañar|chanar">Neuquén</option>
 <option value="canelones|maldonado|montevideo|chapeu">Uruguay</option>
 <option value="central|cachapoal|colchagua">Chile</option>
 <option value="ararat|armavir" data-i18n="filter.armenia">Armenia</option>
