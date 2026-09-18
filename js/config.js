@@ -8,6 +8,7 @@
 
 // ── CONFIG ────────────────────────────────────────────────────────────────────
 const SHEETS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6k_rIOY7x9C5uCCM9oaBn6NtVbAckrlqpn3K6-va_1m-V2icKh2Jai0PNI_cY7FK7emEwSZApvfym/pub?output=csv';
+const ORDEN_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT6k_rIOY7x9C5uCCM9oaBn6NtVbAckrlqpn3K6-va_1m-V2icKh2Jai0PNI_cY7FK7emEwSZApvfym/pub?gid=1413872444&single=true&output=csv';
 const WHATSAPP_NUMBER = '393343077933';
 // Webhooks n8n — completar cuando estén listos:
 const N8N_REGISTER = ''; // 'https://tu-n8n.com/webhook/vda-register'

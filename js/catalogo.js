@@ -27,7 +27,45 @@ function renderDestacados(){
   el.innerHTML = html;
 }
 // ── CATALOG ───────────────────────────────────────────────────────────────────
+let ordenPorContexto = {};
+
+const REGION_VALUE_TO_CONTEXTO = {
+  'mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael': 'mendoza',
+  'salta|cafayate|calchaqu': 'salta',
+  'jujuy': 'jujuy',
+  'neuquén|neuquen|chañar|chanar|añelo|rincon': 'neuquen',
+  'río negro|rio negro': 'rionegro',
+  'chubut': 'chubut',
+  'canelones|maldonado|montevideo|chapeu': 'uruguay',
+  'central|cachapoal|colchagua': 'chile',
+  'ararat|armavir': 'armenia',
+  'mallorca|ibiza|eivissa': 'espana',
+  'yamanashi': 'japon',
+  'francia': 'francia',
+  'italia': 'italia',
+  '': 'general'
+};
+
 function loadCatalog(){
+  Papa.parse(ORDEN_CSV, {
+    download: true,
+    skipEmptyLines: true,
+    complete: function(ordenResults){
+      const ordenRows = ordenResults.data.slice(1);
+      ordenRows.forEach(r => {
+        const contexto = (r[0]||'').trim();
+        const bodega = (r[1]||'').trim();
+        const orden = parseInt(r[2]) || 9999;
+        if(!ordenPorContexto[contexto]) ordenPorContexto[contexto] = {};
+        ordenPorContexto[contexto][bodega] = orden;
+      });
+      cargarCatalogoReal();
+    },
+    error: function(){ cargarCatalogoReal(); }
+  });
+}
+
+function cargarCatalogoReal(){
   Papa.parse(SHEETS_CSV, {
     download: true,
     skipEmptyLines: true,
@@ -107,6 +145,15 @@ function setTypeFilter(type, el){
 }
 
 function renderCatalog(list){
+  const regionSel = document.getElementById('filter-region').value;
+  const contexto = REGION_VALUE_TO_CONTEXTO[regionSel] || 'general';
+  const ordenActual = ordenPorContexto[contexto] || {};
+  list = [...list].sort((a,b) => {
+    const oa = ordenActual[a['Bodega']] ?? 9999;
+    const ob = ordenActual[b['Bodega']] ?? 9999;
+    return oa - ob;
+  });
+
   const el = document.getElementById('catalog');
   document.getElementById('results-count').textContent = `${list.length} ${t('catalog.count')}`;
   if(!list.length){
