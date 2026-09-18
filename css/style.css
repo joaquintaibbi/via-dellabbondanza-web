@@ -676,6 +676,11 @@ header{
   background:var(--light);
   border-bottom:1px solid var(--border);
 }
+.mapa-titulo{
+  font-family:'Playfair Display',serif; font-weight:700;
+  color:var(--wine); font-size:28px;
+  text-align:center; margin:0 0 6px;
+}
 .mapa-guia{
   text-align:center; font-size:13px; color:var(--muted);
   margin:0 0 16px;
@@ -686,36 +691,73 @@ header{
 }
 .mapa-contenedor svg{
   flex:1 1 400px; min-width:0; width:100%; max-height:75vh; height:auto; display:block;
+  overflow:visible;
 }
 .provincia{ stroke:var(--bg); stroke-width:1.5; }
 .provincia.sin-vino{ fill:var(--border); }
 .provincia.con-vino{ fill:var(--gold); cursor:pointer; transition:fill .15s; }
 .provincia.con-vino:hover{ fill:var(--wine); }
-.etiqueta{
-  font-family:'Cinzel',serif; font-size:9px; font-weight:900;
-  letter-spacing:.5px; text-transform:uppercase;
-  fill:#3D0F17 !important; text-anchor:middle; pointer-events:none;
-  stroke:#3D0F17; stroke-width:.4px;
+
+/* ── Puntos de provincia + tooltip ── */
+.provincia-punto{ cursor:pointer; }
+.punto-provincia{
+  fill:var(--gold);
+  stroke:var(--surface); stroke-width:1.5;
+  transition:transform .15s ease, fill .15s ease;
+  transform-box:fill-box; transform-origin:center;
 }
+.provincia-punto:hover .punto-provincia,
+.provincia-punto:focus .punto-provincia{
+  fill:var(--wine);
+  transform:scale(1.45);
+}
+.mapa-tooltip{
+  opacity:0;
+  transition:opacity .15s ease;
+  pointer-events:none;
+}
+.provincia-punto:hover .mapa-tooltip,
+.provincia-punto:focus .mapa-tooltip{ opacity:1; }
+.mapa-tooltip-bg{ fill:var(--wine); }
+.mapa-tooltip-pointer{ fill:var(--wine); }
+.mapa-tooltip-text{
+  font-family:'Inter',sans-serif; font-size:9.5px; font-weight:600;
+  fill:#fff; text-anchor:middle;
+}
+
 .mapa-panel{ flex:0 0 220px; }
 #mapa-resultado{
-  background:var(--surface); border:1px solid var(--border);
-  border-radius:10px; padding:16px;
+  background:linear-gradient(155deg, var(--surface), var(--light));
+  border:1px solid var(--border);
+  border-radius:14px; padding:20px;
+  text-align:center;
+  box-shadow:0 4px 16px rgba(91,26,39,.07);
+}
+.mapa-resultado-icon{
+  display:block; font-size:26px; margin-bottom:8px;
 }
 #mapa-resultado h3{
   margin:0 0 6px; color:var(--wine);
-  font-family:'Playfair Display',serif; font-size:19px;
+  font-family:'Playfair Display',serif; font-size:20px; font-weight:700;
 }
 #mapa-resultado p{ margin:0; color:var(--muted); font-size:13px; }
 .mapa-paises{ margin-top:16px; }
 .mapa-paises-label{ font-size:11px; color:var(--muted); letter-spacing:.5px; margin:0 0 8px; }
 .mapa-paises button{
-  display:block; width:100%; text-align:left; margin-bottom:6px;
-  padding:8px 10px; background:var(--surface); border:1px solid var(--border);
-  border-radius:6px; cursor:pointer; font-size:13px; font-family:'Inter',sans-serif;
+  display:flex; align-items:center; gap:8px;
+  width:100%; text-align:left; margin-bottom:8px;
+  padding:10px 14px; background:var(--surface); border:1px solid var(--border);
+  border-radius:8px; cursor:pointer; font-size:13px; font-weight:600; font-family:'Inter',sans-serif;
   color:var(--text);
+  transition:border-color .2s ease, background .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-.mapa-paises button:hover{ border-color:var(--gold); }
+.mapa-pais-flag{ font-size:15px; line-height:1; }
+.mapa-paises button:hover{
+  border-color:var(--gold);
+  background:var(--light);
+  transform:translateX(3px);
+  box-shadow:0 3px 10px rgba(196,149,42,.25);
+}
 @media (max-width:640px){
   .mapa-contenedor{ flex-direction:column; }
   .mapa-panel{ width:100%; }

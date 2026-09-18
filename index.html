@@ -151,6 +151,7 @@
  </header>
 <div id="mapa-screen" style="display:none;">
 <div id="mapa-section">
+<h2 class="mapa-titulo">Explorá las regiones</h2>
 <p class="mapa-guia"><span data-i18n="mapa.guia">Tocá una región para ver sus vinos</span> — <a href="#" onclick="event.preventDefault(); verCatalogoCompleto();" data-i18n="mapa.vertodo">o mirá el catálogo completo</a></p>
 <div class="mapa-contenedor">
 <svg id="mapa-argentina" viewBox="0 0 460 640">
@@ -179,24 +180,88 @@
 <path class="provincia con-vino" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Jujuy')" d="M119.8,108.8 L124.0,114.4 L129.3,115.6 L130.5,113.3 L129.9,108.2 L132.8,104.0 L134.4,104.2 L135.1,111.8 L137.6,113.4 L141.0,119.9 L148.7,123.5 L149.9,120.3 L151.8,122.5 L154.2,122.6 L159.4,118.0 L159.4,105.5 L157.0,105.5 L156.1,107.2 L153.1,104.5 L150.7,104.9 L143.9,92.9 L145.7,82.4 L138.2,82.4 L132.5,77.2 L131.1,82.3 L124.8,84.8 L124.5,87.4 L121.8,89.1 L119.3,93.8 L122.2,96.6 L119.0,107.0 L119.8,108.8 Z"/>
 <path class="provincia con-vino" onclick="seleccionarRegionMapa('central|cachapoal|colchagua', 'Chile')" d="M100.3,583.2 L100.4,619.8 L122.4,620.3 L118.0,626.9 L106.7,632.0 L92.5,630.1 L82.9,625.2 L69.1,622.8 L39.1,604.9 L20.9,586.5 L31.8,589.9 L50.3,600.9 L67.8,606.8 L74.6,599.3 L78.8,588.0 L91.0,581.2 L100.3,583.2 Z M105.8,72.2 L111.0,94.8 L120.5,92.6 L122.1,96.7 L117.5,113.7 L103.2,121.8 L103.6,149.2 L100.9,154.5 L104.8,160.9 L95.5,171.1 L86.9,186.5 L82.2,201.4 L83.4,217.3 L75.3,234.2 L81.4,262.5 L84.8,265.5 L84.8,280.6 L77.2,296.6 L77.5,310.3 L67.6,321.0 L67.6,336.1 L71.6,352.1 L63.7,358.1 L57.1,389.5 L59.3,409.5 L54.0,412.8 L57.1,431.8 L63.1,438.0 L58.7,444.9 L64.8,448.2 L66.2,454.3 L60.5,457.5 L61.9,467.1 L57.1,488.8 L50.1,502.8 L51.6,511.1 L47.5,521.5 L37.4,528.7 L38.5,546.1 L43.2,552.1 L51.9,551.0 L51.7,563.3 L57.1,572.9 L89.0,575.1 L101.2,577.7 L89.4,577.5 L71.2,587.5 L69.1,602.8 L63.5,603.2 L48.7,597.9 L33.6,586.4 L17.2,577.1 L13.1,566.7 L16.8,557.0 L10.2,546.1 L8.5,518.2 L14.1,502.4 L28.0,489.7 L8.0,484.9 L20.5,470.4 L25.0,443.2 L39.7,448.9 L46.6,415.0 L37.7,410.6 L33.6,431.1 L25.3,428.8 L33.9,374.9 L40.0,363.7 L36.2,347.7 L35.1,329.2 L40.6,328.7 L57.8,275.9 L63.4,251.5 L60.4,226.9 L64.3,213.3 L62.7,193.1 L70.4,173.1 L72.8,141.3 L81.2,70.6 L80.2,43.7 L77.4,20.6 L84.2,16.4 L87.7,8.0 L94.2,19.2 L96.0,31.0 L102.9,37.9 L98.7,53.8 L105.8,72.2 Z"/>
 <path class="provincia con-vino" onclick="seleccionarRegionMapa('canelones|maldonado|montevideo|chapeu', 'Uruguay')" d="M245.4,215.3 L253.9,213.6 L267.1,226.3 L272.0,225.8 L295.9,245.4 L303.5,256.5 L297.7,264.3 L301.4,273.6 L295.7,283.9 L280.8,293.0 L271.1,289.8 L263.9,291.5 L251.8,284.5 L242.8,285.0 L234.8,275.9 L235.8,265.3 L238.7,261.7 L238.5,245.3 L245.4,215.3 Z"/>
-<text class="etiqueta" x="100.9" y="287.7" onclick="seleccionarRegionMapa('mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael', 'Mendoza')">Mendoza</text>
-<text class="etiqueta" x="150.8" y="132" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Salta')">Salta</text>
-<text class="etiqueta" x="82.7" y="353.3" onclick="seleccionarRegionMapa('neuquén|neuquen|chañar|chanar|añelo|rincon', 'Neuquén')">Neuquén</text>
-<text class="etiqueta" x="119.0" y="382.3" onclick="seleccionarRegionMapa('río negro|rio negro', 'Río Negro')">Río Negro</text>
-<text class="etiqueta" x="101.8" y="437.9" onclick="seleccionarRegionMapa('chubut', 'Chubut')">Chubut</text>
-<text class="etiqueta" x="138.2" y="96" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Jujuy')">Jujuy</text>
-<text class="etiqueta" x="60.3" y="332.1" onclick="seleccionarRegionMapa('central|cachapoal|colchagua', 'Chile')">Chile</text>
-<text class="etiqueta" x="266.7" y="257.5" onclick="seleccionarRegionMapa('canelones|maldonado|montevideo|chapeu', 'Uruguay')">Uruguay</text>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael', 'Mendoza')">
+<circle class="punto-provincia" cx="100.9" cy="287.7" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(100.9,287.7)">
+<rect class="mapa-tooltip-bg" x="-32" y="-27" width="64" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Mendoza</text>
+</g>
+<title>Mendoza</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Salta')">
+<circle class="punto-provincia" cx="150.8" cy="132" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(150.8,132)">
+<rect class="mapa-tooltip-bg" x="-26" y="-27" width="52" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Salta</text>
+</g>
+<title>Salta</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('neuquén|neuquen|chañar|chanar|añelo|rincon', 'Neuquén')">
+<circle class="punto-provincia" cx="82.7" cy="353.3" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(82.7,353.3)">
+<rect class="mapa-tooltip-bg" x="-32" y="-27" width="64" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Neuquén</text>
+</g>
+<title>Neuquén</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('río negro|rio negro', 'Río Negro')">
+<circle class="punto-provincia" cx="119.0" cy="382.3" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(119.0,382.3)">
+<rect class="mapa-tooltip-bg" x="-38" y="-27" width="76" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Río Negro</text>
+</g>
+<title>Río Negro</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('chubut', 'Chubut')">
+<circle class="punto-provincia" cx="101.8" cy="437.9" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(101.8,437.9)">
+<rect class="mapa-tooltip-bg" x="-29" y="-27" width="58" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Chubut</text>
+</g>
+<title>Chubut</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Jujuy')">
+<circle class="punto-provincia" cx="138.2" cy="96" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(138.2,96)">
+<rect class="mapa-tooltip-bg" x="-26" y="-27" width="52" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Jujuy</text>
+</g>
+<title>Jujuy</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('central|cachapoal|colchagua', 'Chile')">
+<circle class="punto-provincia" cx="60.3" cy="332.1" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(60.3,332.1)">
+<rect class="mapa-tooltip-bg" x="-26" y="-27" width="52" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Chile</text>
+</g>
+<title>Chile</title>
+</g>
+<g class="provincia-punto" onclick="seleccionarRegionMapa('canelones|maldonado|montevideo|chapeu', 'Uruguay')">
+<circle class="punto-provincia" cx="266.7" cy="257.5" r="4.5"/>
+<g class="mapa-tooltip" transform="translate(266.7,257.5)">
+<rect class="mapa-tooltip-bg" x="-32" y="-27" width="64" height="17" rx="5"/>
+<path class="mapa-tooltip-pointer" d="M-5,-10 L5,-10 L0,-4 Z"/>
+<text class="mapa-tooltip-text" x="0" y="-15.5">Uruguay</text>
+</g>
+<title>Uruguay</title>
+</g>
 </svg>
 <div class="mapa-panel">
-<div id="mapa-resultado"><h3 data-i18n="mapa.elegir">Elegí una región</h3><p data-i18n="mapa.disponibles">Con vinos disponibles</p></div>
+<div id="mapa-resultado"><span class="mapa-resultado-icon">🍷</span><h3 data-i18n="mapa.elegir">Elegí una región</h3><p data-i18n="mapa.disponibles">Con vinos disponibles</p></div>
 <div class="mapa-paises">
 <p class="mapa-paises-label" data-i18n="filter.otros.paises">OTROS PAÍSES</p>
-<button onclick="seleccionarRegionMapa('ararat|armavir', 'Armenia')">Armenia</button>
-<button onclick="seleccionarRegionMapa('mallorca|ibiza|eivissa', 'España')">España</button>
-<button onclick="seleccionarRegionMapa('yamanashi', 'Japón')">Japón</button>
-<button onclick="seleccionarRegionMapa('francia', 'Francia')">Francia</button>
-<button onclick="seleccionarRegionMapa('italia', 'Italia')">Italia</button>
+<button onclick="seleccionarRegionMapa('ararat|armavir', 'Armenia')"><span class="mapa-pais-flag">🇦🇲</span>Armenia</button>
+<button onclick="seleccionarRegionMapa('mallorca|ibiza|eivissa', 'España')"><span class="mapa-pais-flag">🇪🇸</span>España</button>
+<button onclick="seleccionarRegionMapa('yamanashi', 'Japón')"><span class="mapa-pais-flag">🇯🇵</span>Japón</button>
+<button onclick="seleccionarRegionMapa('francia', 'Francia')"><span class="mapa-pais-flag">🇫🇷</span>Francia</button>
+<button onclick="seleccionarRegionMapa('italia', 'Italia')"><span class="mapa-pais-flag">🇮🇹</span>Italia</button>
 </div>
 </div>
 </div>
