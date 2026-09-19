@@ -698,7 +698,7 @@ header{
 .provincia.con-vino{ fill:var(--gold); cursor:pointer; transition:fill .15s; }
 .provincia.con-vino:hover{ fill:var(--wine); }
 
-/* ── Puntos de provincia + tooltip ── */
+/* ── Puntos de provincia + nombre siempre visible ── */
 .provincia-punto{ cursor:pointer; }
 .punto-provincia{
   fill:var(--gold);
@@ -706,23 +706,51 @@ header{
   transition:transform .15s ease, fill .15s ease;
   transform-box:fill-box; transform-origin:center;
 }
+.provincia-label{
+  font-family:'Inter',sans-serif; font-size:7.5px; font-weight:700;
+  fill:var(--wine); text-anchor:middle;
+  paint-order:stroke fill;
+  stroke:var(--surface); stroke-width:2.5px; stroke-linejoin:round;
+  transition:fill .15s ease, transform .15s ease;
+  transform-box:fill-box; transform-origin:center;
+}
+
+/* hover/foco sobre el punto O sobre el texto */
 .provincia-punto:hover .punto-provincia,
 .provincia-punto:focus .punto-provincia{
   fill:var(--wine);
   transform:scale(1.45);
 }
-.mapa-tooltip{
-  opacity:0;
-  transition:opacity .15s ease;
-  pointer-events:none;
+.provincia-punto:hover .provincia-label,
+.provincia-punto:focus .provincia-label{
+  fill:var(--gold);
+  transform:scale(1.2);
+  text-decoration:underline;
 }
-.provincia-punto:hover .mapa-tooltip,
-.provincia-punto:focus .mapa-tooltip{ opacity:1; }
-.mapa-tooltip-bg{ fill:var(--wine); }
-.mapa-tooltip-pointer{ fill:var(--wine); }
-.mapa-tooltip-text{
-  font-family:'Inter',sans-serif; font-size:9.5px; font-weight:600;
-  fill:#fff; text-anchor:middle;
+
+/* hover sobre la forma coloreada de la provincia (el <path>) resalta también su punto y su nombre */
+svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .punto-provincia,
+svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .punto-provincia,
+svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .punto-provincia,
+svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .punto-provincia,
+svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .punto-provincia,
+svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .punto-provincia,
+svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .punto-provincia,
+svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .punto-provincia{
+  fill:var(--wine);
+  transform:scale(1.45);
+}
+svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .provincia-label,
+svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .provincia-label,
+svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .provincia-label,
+svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .provincia-label,
+svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .provincia-label,
+svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .provincia-label,
+svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .provincia-label,
+svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .provincia-label{
+  fill:var(--gold);
+  transform:scale(1.2);
+  text-decoration:underline;
 }
 
 .mapa-panel{ flex:0 0 220px; }
