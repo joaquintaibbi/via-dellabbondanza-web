@@ -707,12 +707,22 @@ header{
   transform-box:fill-box; transform-origin:center;
 }
 .provincia-label{
-  font-family:'Inter',sans-serif; font-size:7.5px; font-weight:700;
+  font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
   fill:var(--wine); text-anchor:middle;
   paint-order:stroke fill;
-  stroke:var(--surface); stroke-width:2.5px; stroke-linejoin:round;
+  stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;
   transition:fill .15s ease, transform .15s ease;
   transform-box:fill-box; transform-origin:center;
+}
+/* el SVG escala junto con el contenedor: en pantallas angostas el mismo
+   font-size (en unidades del viewBox) rinde menos px reales, así que en
+   mobile se agranda para no bajar de ~11-12px legibles */
+@media (max-width:640px){
+  .provincia-label{ font-size:19px; }
+}
+.provincia-leader{
+  stroke:var(--gold); stroke-width:1px; opacity:.7;
+  transition:stroke .15s ease, opacity .15s ease;
 }
 
 /* hover/foco sobre el punto O sobre el texto */
@@ -724,8 +734,12 @@ header{
 .provincia-punto:hover .provincia-label,
 .provincia-punto:focus .provincia-label{
   fill:var(--gold);
-  transform:scale(1.2);
+  transform:scale(1.15);
   text-decoration:underline;
+}
+.provincia-punto:hover .provincia-leader,
+.provincia-punto:focus .provincia-leader{
+  stroke:var(--wine); opacity:1;
 }
 
 /* hover sobre la forma coloreada de la provincia (el <path>) resalta también su punto y su nombre */
@@ -749,8 +763,18 @@ svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region
 svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .provincia-label,
 svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .provincia-label{
   fill:var(--gold);
-  transform:scale(1.2);
+  transform:scale(1.15);
   text-decoration:underline;
+}
+svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .provincia-leader,
+svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .provincia-leader,
+svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .provincia-leader,
+svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .provincia-leader,
+svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .provincia-leader,
+svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .provincia-leader,
+svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .provincia-leader,
+svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .provincia-leader{
+  stroke:var(--wine); opacity:1;
 }
 
 .mapa-panel{ flex:0 0 220px; }
