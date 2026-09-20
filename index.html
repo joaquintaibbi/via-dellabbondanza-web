@@ -183,48 +183,56 @@
 <g class="provincia-punto" data-region="mendoza" onclick="seleccionarRegionMapa('mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael', 'Mendoza')">
 <line class="provincia-leader" x1="105.2" y1="287.7" x2="116" y2="290.5"/>
 <circle class="punto-provincia" cx="100.9" cy="287.7" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="119" y="293.5" style="text-anchor:start">Mendoza</text>
 <text class="provincia-label" x="119" y="293.5" style="text-anchor:start">Mendoza</text>
 <title>Mendoza</title>
 </g>
 <g class="provincia-punto" data-region="salta" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Salta')">
 <line class="provincia-leader" x1="155.1" y1="132" x2="166" y2="134.5"/>
 <circle class="punto-provincia" cx="150.8" cy="132" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="169" y="137.5" style="text-anchor:start">Salta</text>
 <text class="provincia-label" x="169" y="137.5" style="text-anchor:start">Salta</text>
 <title>Salta</title>
 </g>
 <g class="provincia-punto" data-region="neuquen" onclick="seleccionarRegionMapa('neuquén|neuquen|chañar|chanar|añelo|rincon', 'Neuquén')">
 <line class="provincia-leader" x1="87" y1="354.5" x2="106" y2="360"/>
 <circle class="punto-provincia" cx="82.7" cy="353.3" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="109" y="363" style="text-anchor:start">Neuquén</text>
 <text class="provincia-label" x="109" y="363" style="text-anchor:start">Neuquén</text>
 <title>Neuquén</title>
 </g>
 <g class="provincia-punto" data-region="rio-negro" onclick="seleccionarRegionMapa('río negro|rio negro', 'Río Negro')">
 <line class="provincia-leader" x1="119.0" y1="386.8" x2="119.0" y2="396"/>
 <circle class="punto-provincia" cx="119.0" cy="382.3" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="119.0" y="404" style="text-anchor:middle">Río Negro</text>
 <text class="provincia-label" x="119.0" y="404" style="text-anchor:middle">Río Negro</text>
 <title>Río Negro</title>
 </g>
 <g class="provincia-punto" data-region="chubut" onclick="seleccionarRegionMapa('chubut', 'Chubut')">
 <line class="provincia-leader" x1="101.8" y1="442.4" x2="101.8" y2="451"/>
 <circle class="punto-provincia" cx="101.8" cy="437.9" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="101.8" y="459" style="text-anchor:middle">Chubut</text>
 <text class="provincia-label" x="101.8" y="459" style="text-anchor:middle">Chubut</text>
 <title>Chubut</title>
 </g>
 <g class="provincia-punto" data-region="jujuy" onclick="seleccionarRegionMapa('salta|cafayate|calchaqu|jujuy', 'Jujuy')">
 <line class="provincia-leader" x1="142.5" y1="93" x2="160" y2="80"/>
 <circle class="punto-provincia" cx="138.2" cy="96" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="163" y="83" style="text-anchor:start">Jujuy</text>
 <text class="provincia-label" x="163" y="83" style="text-anchor:start">Jujuy</text>
 <title>Jujuy</title>
 </g>
 <g class="provincia-punto" data-region="chile" onclick="seleccionarRegionMapa('central|cachapoal|colchagua', 'Chile')">
 <line class="provincia-leader" x1="60.3" y1="327.6" x2="60.3" y2="315"/>
 <circle class="punto-provincia" cx="60.3" cy="332.1" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="60.3" y="311" style="text-anchor:middle">Chile</text>
 <text class="provincia-label" x="60.3" y="311" style="text-anchor:middle">Chile</text>
 <title>Chile</title>
 </g>
 <g class="provincia-punto" data-region="uruguay" onclick="seleccionarRegionMapa('canelones|maldonado|montevideo|chapeu', 'Uruguay')">
 <line class="provincia-leader" x1="271" y1="257.5" x2="284" y2="254"/>
 <circle class="punto-provincia" cx="266.7" cy="257.5" r="4.5"/>
+<text class="provincia-label-halo" aria-hidden="true" x="287" y="257.5" style="text-anchor:start">Uruguay</text>
 <text class="provincia-label" x="287" y="257.5" style="text-anchor:start">Uruguay</text>
 <title>Uruguay</title>
 </g>
@@ -303,7 +311,7 @@
 <option value="yamanashi" style="display:none;">Japón</option>
 </select>
 <input type="number" id="filter-precio-min" placeholder="€ mín" min="0" oninput="applyFilters()" data-i18n-placeholder="filter.precio.min"/>
-<<input type="number" id="filter-precio-max" placeholder="€ máx" min="0" oninput="applyFilters()" data-i18n-placeholder="filter.precio.max"/>
+<input type="number" id="filter-precio-max" placeholder="€ máx" min="0" oninput="applyFilters()" data-i18n-placeholder="filter.precio.max"/>
 </div>
 <button id="reset-filters" onclick="resetFilters()" data-i18n="filter.reset" style="display:none;">Restablecer filtros</button>
 <span class="results-count" id="results-count"></span>

@@ -698,82 +698,131 @@ header{
 .provincia.con-vino{ fill:var(--gold); cursor:pointer; transition:fill .15s; }
 .provincia.con-vino:hover{ fill:var(--wine); }
 
-/* ── Puntos de provincia + nombre siempre visible ── */
+/* ── Puntos de provincia + nombre siempre visible ──
+   Sin :has(), paint-order ni transform-box (endurecido por pantalla blanca):
+   el resaltado usa solo propiedades simples (fill, stroke-width, font-size). */
 .provincia-punto{ cursor:pointer; }
 .punto-provincia{
   fill:var(--gold);
   stroke:var(--surface); stroke-width:1.5;
-  transition:transform .15s ease, fill .15s ease;
-  transform-box:fill-box; transform-origin:center;
+  transition:fill .15s ease, stroke-width .15s ease;
 }
-.provincia-label{
+.provincia-label,
+.provincia-label-halo{
   font-family:'Inter',sans-serif; font-size:15px; font-weight:700;
-  fill:var(--wine); text-anchor:middle;
-  paint-order:stroke fill;
+  text-anchor:middle;
+}
+.provincia-label{ fill:var(--wine); transition:fill .15s ease; }
+/* halo blanco: copia del texto por detrás, en vez de paint-order */
+.provincia-label-halo{
+  fill:var(--surface);
   stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;
-  transition:fill .15s ease, transform .15s ease;
-  transform-box:fill-box; transform-origin:center;
+  pointer-events:none;
 }
 /* el SVG escala junto con el contenedor: en pantallas angostas el mismo
    font-size (en unidades del viewBox) rinde menos px reales, así que en
    mobile se agranda para no bajar de ~11-12px legibles */
 @media (max-width:640px){
-  .provincia-label{ font-size:19px; }
+  .provincia-label,
+  .provincia-label-halo{ font-size:19px; }
 }
 .provincia-leader{
   stroke:var(--gold); stroke-width:1px; opacity:.7;
   transition:stroke .15s ease, opacity .15s ease;
 }
 
-/* hover/foco sobre el punto O sobre el texto */
+/* hover/foco sobre el punto o el texto */
 .provincia-punto:hover .punto-provincia,
 .provincia-punto:focus .punto-provincia{
-  fill:var(--wine);
-  transform:scale(1.45);
+  fill:var(--wine); stroke-width:3.5;
 }
 .provincia-punto:hover .provincia-label,
 .provincia-punto:focus .provincia-label{
-  fill:var(--gold);
-  transform:scale(1.15);
-  text-decoration:underline;
+  fill:var(--gold); text-decoration:underline;
 }
+.provincia-punto:hover .provincia-label,
+.provincia-punto:focus .provincia-label,
+.provincia-punto:hover .provincia-label-halo,
+.provincia-punto:focus .provincia-label-halo{ font-size:17px; }
 .provincia-punto:hover .provincia-leader,
 .provincia-punto:focus .provincia-leader{
   stroke:var(--wine); opacity:1;
 }
+@media (max-width:640px){
+  .provincia-punto:hover .provincia-label,
+  .provincia-punto:focus .provincia-label,
+  .provincia-punto:hover .provincia-label-halo,
+  .provincia-punto:focus .provincia-label-halo{ font-size:21px; }
+}
 
-/* hover sobre la forma coloreada de la provincia (el <path>) resalta también su punto y su nombre */
-svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .punto-provincia,
-svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .punto-provincia,
-svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .punto-provincia,
-svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .punto-provincia,
-svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .punto-provincia,
-svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .punto-provincia,
-svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .punto-provincia,
-svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .punto-provincia{
-  fill:var(--wine);
-  transform:scale(1.45);
+/* hover sobre la forma coloreada (el <path>) resalta su punto y su nombre.
+   Los <path> son hermanos anteriores de los <g>, así que alcanza con "~". */
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .punto-provincia,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .punto-provincia,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .punto-provincia,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .punto-provincia,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .punto-provincia,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .punto-provincia,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .punto-provincia,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .punto-provincia{
+  fill:var(--wine); stroke-width:3.5;
 }
-svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .provincia-label,
-svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .provincia-label,
-svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .provincia-label,
-svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .provincia-label,
-svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .provincia-label,
-svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .provincia-label,
-svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .provincia-label,
-svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .provincia-label{
-  fill:var(--gold);
-  transform:scale(1.15);
-  text-decoration:underline;
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-label,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-label,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-label,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-label,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label{
+  fill:var(--gold); text-decoration:underline;
 }
-svg:has(path.provincia[data-region="mendoza"]:hover) g.provincia-punto[data-region="mendoza"] .provincia-leader,
-svg:has(path.provincia[data-region="salta"]:hover) g.provincia-punto[data-region="salta"] .provincia-leader,
-svg:has(path.provincia[data-region="neuquen"]:hover) g.provincia-punto[data-region="neuquen"] .provincia-leader,
-svg:has(path.provincia[data-region="rio-negro"]:hover) g.provincia-punto[data-region="rio-negro"] .provincia-leader,
-svg:has(path.provincia[data-region="chubut"]:hover) g.provincia-punto[data-region="chubut"] .provincia-leader,
-svg:has(path.provincia[data-region="jujuy"]:hover) g.provincia-punto[data-region="jujuy"] .provincia-leader,
-svg:has(path.provincia[data-region="chile"]:hover) g.provincia-punto[data-region="chile"] .provincia-leader,
-svg:has(path.provincia[data-region="uruguay"]:hover) g.provincia-punto[data-region="uruguay"] .provincia-leader{
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-label,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-label,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-label,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-label,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label,
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-label-halo,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-label-halo,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-label-halo,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-label-halo,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label-halo,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label-halo,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label-halo,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label-halo{
+  font-size:17px;
+}
+@media (max-width:640px){
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-label,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-label,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-label,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-label,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label,
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-label-halo,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-label-halo,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-label-halo,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-label-halo,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label-halo,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label-halo,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label-halo,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label-halo{
+    font-size:21px;
+  }
+}
+path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-leader,
+path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-leader,
+path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-leader,
+path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="rio-negro"] .provincia-leader,
+path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-leader,
+path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-leader,
+path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-leader,
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-leader{
   stroke:var(--wine); opacity:1;
 }
 
