@@ -710,10 +710,10 @@ header{
 }
 .provincia-label,
 .provincia-label-halo{
-  font-family:'Playfair Display',serif; font-weight:600;
+  font-family:'Playfair Display',serif; font-weight:700;
   letter-spacing:.2px; text-anchor:start; dominant-baseline:central;
 }
-.provincia-label{ fill:var(--wine); transition:fill .2s ease; }
+.provincia-label{ fill:#3d1a1a; transition:fill .2s ease; }
 /* halo claro: copia del texto por detrás (en vez de paint-order) */
 .provincia-label-halo{
   fill:var(--bg);
@@ -733,18 +733,18 @@ header{
 }
 
 /* Tamaño del nombre. El SVG escala junto con su contenedor (0.52x a 320px,
-   0.64x a 375px, 1.41x desde ~980px), así que el font-size (unidades del
-   viewBox) se recalcula por ancho para que el nombre rinda entre 13px y
-   ~19px reales en cualquier pantalla (mínimo 13px desde 320px de ancho).
-   El hover suma 1px y pasa a negrita. */
-#mapa-argentina{ --label-fs:10px; }
-@media (max-width:979px){ #mapa-argentina{ --label-fs:11.5px; } }
-@media (max-width:899px){ #mapa-argentina{ --label-fs:13px; } }
-@media (max-width:829px){ #mapa-argentina{ --label-fs:14.5px; } }
-@media (max-width:760px){ #mapa-argentina{ --label-fs:19.5px; } }
-@media (max-width:640px){ #mapa-argentina{ --label-fs:15.5px; } }
-@media (max-width:479px){ #mapa-argentina{ --label-fs:21.5px; } }
-@media (max-width:359px){ #mapa-argentina{ --label-fs:25px; } }
+   0.64x a 375px, 0.95x a 768px, 1.41x desde ~980px), así que el font-size
+   (unidades del viewBox) se recalcula por ancho para que el nombre rinda
+   SIEMPRE >=15px reales (15.1px a 320px, 16.0px a 375px, 15.5px en desktop).
+   El hover suma 1px, oscurece y subraya. */
+#mapa-argentina{ --label-fs:11px; }
+@media (max-width:979px){ #mapa-argentina{ --label-fs:12.5px; } }
+@media (max-width:899px){ #mapa-argentina{ --label-fs:14px; } }
+@media (max-width:829px){ #mapa-argentina{ --label-fs:16.5px; } }
+@media (max-width:760px){ #mapa-argentina{ --label-fs:22.5px; } }
+@media (max-width:640px){ #mapa-argentina{ --label-fs:17.5px; } }
+@media (max-width:479px){ #mapa-argentina{ --label-fs:25px; } }
+@media (max-width:359px){ #mapa-argentina{ --label-fs:29px; } }
 .provincia-label,
 .provincia-label-halo{ font-size:var(--label-fs); }
 .provincia-punto:hover .provincia-label,
@@ -776,7 +776,7 @@ path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uru
 .provincia-punto:hover .provincia-label-halo,
 .provincia-punto:focus .provincia-label-halo{ font-weight:700; }
 .provincia-punto:hover .provincia-label,
-.provincia-punto:focus .provincia-label{ fill:#3D0F17; }
+.provincia-punto:focus .provincia-label{ fill:#241010; text-decoration:underline; }
 .provincia-punto:hover .provincia-leader,
 .provincia-punto:focus .provincia-leader{ stroke:var(--gold-deep); }
 
@@ -813,7 +813,7 @@ path.provincia[data-region="rio-negro"]:hover ~ g.provincia-punto[data-region="r
 path.provincia[data-region="chubut"]:hover ~ g.provincia-punto[data-region="chubut"] .provincia-label,
 path.provincia[data-region="jujuy"]:hover ~ g.provincia-punto[data-region="jujuy"] .provincia-label,
 path.provincia[data-region="chile"]:hover ~ g.provincia-punto[data-region="chile"] .provincia-label,
-path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label{ fill:#3D0F17; }
+path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uruguay"] .provincia-label{ fill:#241010; text-decoration:underline; }
 path.provincia[data-region="mendoza"]:hover ~ g.provincia-punto[data-region="mendoza"] .provincia-leader,
 path.provincia[data-region="salta"]:hover ~ g.provincia-punto[data-region="salta"] .provincia-leader,
 path.provincia[data-region="neuquen"]:hover ~ g.provincia-punto[data-region="neuquen"] .provincia-leader,
