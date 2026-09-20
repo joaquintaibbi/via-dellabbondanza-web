@@ -723,11 +723,11 @@ header{
 /* Líneas guía: finas, punteadas y doradas */
 /* borde claro por debajo para que el dorado también se lea sobre provincias doradas */
 .provincia-leader-casing{
-  stroke:var(--bg); stroke-width:2.6; stroke-linecap:round; opacity:.9;
+stroke:var(--bg); stroke-width:1.8; stroke-linecap:round; opacity:0;
   pointer-events:none;
 }
 .provincia-leader{
-  stroke:var(--gold); stroke-width:.9; stroke-dasharray:2.5 2.5;
+  stroke:#5B1A27; stroke-width:2; stroke-dasharray:none;
   stroke-linecap:round; opacity:1;
   transition:stroke .2s ease;
 }
@@ -737,8 +737,8 @@ header{
    (unidades del viewBox) se recalcula por ancho para que el nombre rinda
    SIEMPRE >=15px reales (15.1px a 320px, 16.0px a 375px, 15.5px en desktop).
    El hover suma 1px, oscurece y subraya. */
-#mapa-argentina{ --label-fs:11px; }
-@media (max-width:979px){ #mapa-argentina{ --label-fs:12.5px; } }
+#mapa-argentina{ --label-fs:17px; }
+@media (max-width:979px){ #mapa-argentina{ --label-fs:18px; } }
 @media (max-width:899px){ #mapa-argentina{ --label-fs:14px; } }
 @media (max-width:829px){ #mapa-argentina{ --label-fs:16.5px; } }
 @media (max-width:760px){ #mapa-argentina{ --label-fs:22.5px; } }
