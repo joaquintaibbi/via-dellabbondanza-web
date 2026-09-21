@@ -1,6 +1,6 @@
 // auth.js
 // Login, registro, logout y arranque de la aplicación tras autenticar.
-// Depende de config.js (debe cargarse antes en index.html).
+// Depende de config.js (debe cargarse antes en catalogo.html).
 
 // ── AUTH ──────────────────────────────────────────────────────────────────────
 function showTab(tab){
@@ -305,7 +305,7 @@ function confirmarEdad(esMayor){
   if(esMayor){
     localStorage.setItem('vda_age_ok', 'yes');
     document.getElementById('age-gate-overlay').classList.remove('open');
-    window.location.href = 'homepage.html';
+    window.location.href = 'index.html';
   }else{
     document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif;color:#333;">
       <p>${t('age.rechazo')}</p>
