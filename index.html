@@ -4,8 +4,8 @@
 <meta charset="UTF-8"/>
 <script>
   if (localStorage.getItem('vda_age_ok') !== 'yes') {
-    document.documentElement.classList.add('age-gate-pending');
-  }
+    window.location.replace('homepage.html');
+}
 </script>
 <style>
   html.age-gate-pending #app-screen{ display:none; }
