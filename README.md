@@ -5,7 +5,8 @@ facturación por WhatsApp. Proyecto de Chapa Studio para Via dell'Abbondanza.
 
 ## Estructura
 
-- `index.html` — página principal
+- `index.html` — homepage (es la que sirve el dominio)
+- `catalogo.html` — catálogo de vinos (mapa, filtros, carrito)
 - `css/style.css` — estilos
 - `js/` — lógica (auth, catálogo, carrito)
 - `assets/` — imágenes, favicon
