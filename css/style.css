@@ -108,7 +108,7 @@ header{
   font-size:18px;font-weight:700;color:#fff;letter-spacing:.5px;
   display:flex;align-items:center;gap:8px;
 }
-.header-brand span{color:var(--gold);}
+.header-brand span{color:#fff;}
 .header-actions{display:flex;align-items:center;gap:20px;}
 .header-user{font-size:13px;color:rgba(255,255,255,.7);}
 .cart-btn{
