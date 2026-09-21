@@ -2,6 +2,14 @@
 <html lang="it" translate="no"></html>
 <head>
   <meta charset="UTF-8"/>
+  <script>
+    // Cartel +18: si la edad no está confirmada, se muestra antes de pintar la página.
+    (function(){
+      var ok = false;
+      try { ok = localStorage.getItem('vda_age_ok') === 'yes'; } catch(e) {}
+      if (!ok) document.documentElement.classList.add('age-gate-pending');
+    })();
+  </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C23Y322FEK"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -164,6 +172,19 @@
     </div>
   </section>
 
+  <!-- CARTEL +18 -->
+  <div id="age-gate-overlay">
+    <div class="age-gate-box">
+      <div class="age-gate-icon">🍷</div>
+      <h2 data-i18n="age.titulo">Sei maggiorenne?</h2>
+      <p data-i18n="age.texto">Questo sito richiede la conferma della maggiore età per accedere ai contenuti relativi al vino.</p>
+      <div class="age-gate-btns">
+        <button class="btn-primary" onclick="confirmarEdad(true)" data-i18n="age.si">Sì, ho più di 18 anni</button>
+        <button class="age-gate-no" onclick="confirmarEdad(false)" data-i18n="age.no">No</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/i18n.js"></script>
   <script>
     // Claves de homepage en i18n
@@ -216,6 +237,28 @@
       'home.contact.body': 'We are available for orders, product information or simply for a chat about the world of Argentine wine.',
     });
     applyTranslations();
+  </script>
+  <script>
+    // Cartel +18. Las claves age.* ya están en js/i18n.js.
+    function checkAgeGate(){
+      var ok = false;
+      try { ok = localStorage.getItem('vda_age_ok') === 'yes'; } catch(e) {}
+      document.documentElement.classList.toggle('age-gate-pending', !ok);
+      document.getElementById('age-gate-overlay').classList.toggle('open', !ok);
+    }
+
+    function confirmarEdad(esMayor){
+      if(esMayor){
+        try { localStorage.setItem('vda_age_ok', 'yes'); } catch(e) {}
+        document.getElementById('age-gate-overlay').classList.remove('open');
+        document.documentElement.classList.remove('age-gate-pending');
+      }else{
+        document.body.innerHTML = `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;font-family:'Inter',sans-serif;color:#fff;background:#5B1A27;">
+          <p>${t('age.rechazo')}</p>
+        </div>`;
+      }
+    }
+    checkAgeGate();
   </script>
   <script>
 document.querySelectorAll('.banner-bodega').forEach(el => {
