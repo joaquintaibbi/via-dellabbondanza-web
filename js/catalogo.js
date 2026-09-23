@@ -2,6 +2,31 @@
 // Carga el catálogo desde Google Sheets (CSV publicado), aplica
 // filtros y búsqueda, y renderiza las tarjetas de vino.
 // Depende de config.js.
+// ── MODO DEL CATÁLOGO ─────────────────────────────────────────────────────────
+// Vista (sin parámetro): sin carrito ni precios, con el banner de "iniciá sesión".
+// Pedido (?modo=pedido): comportamiento completo (login, precios y carrito).
+const MODO_PEDIDO = new URLSearchParams(window.location.search).get('modo') === 'pedido';
+document.documentElement.classList.add(MODO_PEDIDO ? 'modo-pedido' : 'modo-vista');
+
+(function configurarModo(){
+  const banner = document.getElementById('banner-precios');
+  if(!MODO_PEDIDO){
+    // En modo vista el banner lleva al modo pedido, que abre el login.
+    if(banner) banner.onclick = () => {
+      const p = new URLSearchParams(window.location.search);
+      p.set('modo', 'pedido');
+      p.set('login', '1');
+      window.location.search = p.toString();
+    };
+    return;
+  }
+  if(new URLSearchParams(window.location.search).get('login') === '1'){
+    window.addEventListener('load', () => setTimeout(() => {
+      if(!currentUser && typeof openAuthModal === 'function') openAuthModal();
+    }, 400));
+  }
+})();
+
 let paginaActual = 1;
 const VINOS_POR_PAGINA = 24;
 const BODEGAS_DESTACADAS = ['Catena Zapata', 'Bodega del Fin del Mundo', 'Rutini', 'Malvinas'];
@@ -215,7 +240,7 @@ function wineCard(w){
       <div class="wine-bodega" onclick="openWineModal('${id}')">${w['Bodega']||''}</div>
       <div class="wine-name" onclick="openWineModal('${id}')">${w['Nombre']}</div>
       <div class="wine-meta" onclick="openWineModal('${id}')">${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}</div>
-      <div class="wine-footer">
+      ${MODO_PEDIDO ? `<div class="wine-footer">
        ${logueado ? `<div class="wine-price">€${precio} <span>/botella</span></div>` : ''}
        ${w['Botellas_Por_Caja'] && parseInt(w['Botellas_Por_Caja']) > 1 ? `
 <select class="unidad-select" id="unidad-${id}" onclick="event.stopPropagation()">
@@ -224,7 +249,7 @@ function wineCard(w){
 </select>
 ` : ''}
         <button class="add-btn" ${agotado?'disabled':''} onclick="event.stopPropagation(); addToCart('${id}')" title="Agregar al pedido">+</button>
-      </div>
+      </div>` : ''}
     </div>
   </div>`;
 }
@@ -258,7 +283,9 @@ document.getElementById('modal-bodega-desc').innerHTML = descHTML;
   document.getElementById('modal-meta').textContent = `${w['Uva(s)']||''} · ${w['Cosecha']||''} · ${w['Región']||''}`;
   const logueado = !!currentUser;
   const precioEl = document.getElementById('modal-precio');
-  precioEl.textContent = logueado ? `€${precio} / ${t('modal.precio.unidad')}` : t('catalog.precio.oculto');
+  precioEl.textContent = (logueado && MODO_PEDIDO) ? `€${precio} / ${t('modal.precio.unidad')}` : t('catalog.precio.oculto');
+  const compraEl = document.getElementById('modal-footer-comprar');
+  if(compraEl) compraEl.style.display = MODO_PEDIDO ? 'flex' : 'none';
   const capacidad = w['Capacidad'] || '';
   const capacidadEl = document.getElementById('modal-capacidad');
   if(capacidadEl){
