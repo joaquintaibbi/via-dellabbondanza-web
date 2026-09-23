@@ -54,6 +54,19 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;}
   transition:background .2s,transform .2s;
 }
 .hero-btn:hover{background:#7A2535;transform:translateY(-2px);}
+.hero-btns{
+  display:flex;flex-wrap:wrap;
+  justify-content:center;
+  gap:14px;
+}
+.hero-btns .hero-btn{margin-top:0;}
+/* segundo botón ("Hacer pedido"): contorno, para distinguirlo del principal */
+.hero-btn-secondary{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.75);
+  padding:13px 39px;
+}
+.hero-btn-secondary:hover{background:rgba(255,255,255,.14);}
 /* ── NOSOTROS ── */
 .about{
   display:flex;
@@ -213,6 +226,8 @@ body{font-family:'Inter',sans-serif;background:#0a0a0a;}
   .hero-title { font-size: 26px; }
   .hero-tagline { font-size: 10px; letter-spacing: 2px; padding: 0 16px; }
   .hero-btn { padding: 12px 28px; font-size: 12px; }
+  .hero-btn-secondary { padding: 11px 27px; }
+  .hero-btns { gap: 10px; padding: 0 16px; }
   .hero-content { margin-top: 140px; }
   
   .about { flex-direction: column; padding: 40px 24px; gap: 32px; }

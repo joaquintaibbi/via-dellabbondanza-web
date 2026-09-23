@@ -125,7 +125,8 @@ const TRANSLATIONS = {
     'wa.fecha': 'Data:',
     'wa.footer': 'Ordine inviato dal catalogo web',
     'filter.reset': 'Azzera filtri',
-    'header.banner.precios': 'Accedi per vedere i prezzi',
+    'header.banner.precios': 'Accedi per effettuare un ordine',
+    'home.btn.pedido': 'Fai un ordine',
   },
   es: {
     'auth.tab.login': 'Ingresar',
@@ -246,7 +247,8 @@ const TRANSLATIONS = {
     'wa.fecha': 'Fecha:',
     'wa.footer': 'Pedido enviado desde catálogo web',
     'filter.reset': 'Restablecer filtros',
-    'header.banner.precios': 'Iniciá sesión para ver los precios',
+    'header.banner.precios': 'Iniciá sesión para hacer un pedido',
+    'home.btn.pedido': 'Hacer pedido',
   },
   en: {
     'auth.tab.login': 'Sign in',
@@ -367,7 +369,8 @@ const TRANSLATIONS = {
     'wa.fecha': 'Date:',
     'wa.footer': 'Order sent from web catalog',
     'filter.reset': 'Reset filters',
-    'header.banner.precios': 'Sign in to see prices',
+    'header.banner.precios': 'Sign in to place an order',
+    'home.btn.pedido': 'Place an order',
   }
 };
 

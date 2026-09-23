@@ -2,6 +2,16 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8"/>
+<script>
+  // Modo del catálogo: "pedido" (?modo=pedido) o "vista" (sin parámetro).
+  // Se marca en <html> antes de pintar para que no parpadee el carrito.
+  (function(){
+    var pedido = new URLSearchParams(location.search).get('modo') === 'pedido';
+    var c = document.documentElement.classList;
+    c.add(pedido ? 'modo-pedido' : 'modo-vista');
+    try { if (localStorage.getItem('vda_session')) c.add('con-sesion'); } catch(e) {}
+  })();
+</script>
 <style>
   html.age-gate-pending #app-screen{ display:none; }
   html.age-gate-pending #age-gate-overlay{ display:flex; }

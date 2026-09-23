@@ -918,3 +918,37 @@ path.provincia[data-region="uruguay"]:hover ~ g.provincia-punto[data-region="uru
   .catalog-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .filters-bar { padding: 12px 16px; gap: 10px; }
 }
+
+/* ── MODO VISTA (catalogo.html sin ?modo=pedido) ──
+   Sin carrito ni precios; el banner de "iniciá sesión" pasa a ser el
+   llamado a la acción principal del header. */
+html.modo-vista .cart-btn,
+html.modo-vista #cart-overlay,
+html.modo-vista #cart-drawer{ display:none !important; }
+
+html.modo-vista #banner-precios{
+  font-size:14px !important; font-weight:700 !important;
+  color:#F6DFA4 !important;
+  padding:9px 18px;
+  border:1.5px solid var(--gold); border-radius:999px;
+  background:rgba(196,149,42,.2);
+  letter-spacing:.2px; line-height:1.25; text-align:center;
+  transition:background .2s ease, color .2s ease;
+  animation:bannerPreciosPulso 2.6s ease-in-out infinite;
+}
+html.modo-vista #banner-precios::before{ content:'🔑 '; }
+html.modo-vista #banner-precios:hover{ background:var(--gold); color:var(--wine) !important; }
+/* visible desde el primer render si no hay sesión (auth.js lo muestra recién al terminar de cargar) */
+html.modo-vista:not(.con-sesion) #banner-precios{ display:block !important; }
+@keyframes bannerPreciosPulso{
+  0%,100%{ box-shadow:0 0 0 0 rgba(196,149,42,.55); }
+  50%{ box-shadow:0 0 0 7px rgba(196,149,42,0); }
+}
+@media (prefers-reduced-motion:reduce){
+  html.modo-vista #banner-precios{ animation:none; }
+}
+@media (max-width:768px){
+  /* en mobile el banner ocupa su propia fila, a todo el ancho del header */
+  html.modo-vista .header-actions{ flex:1 1 100%; flex-wrap:wrap; justify-content:center; }
+  html.modo-vista #banner-precios{ flex:1 1 100%; font-size:13px !important; padding:8px 14px; }
+}
