@@ -141,7 +141,8 @@
 <button class="lang-btn" data-lang="es" onclick="setLang('es')">ES</button>
 <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
 </div>
-<button class="logout-btn" id="header-auth-btn" onclick="headerAuthAction()">Iniciar sesión</button>
+<span id="banner-precios" data-i18n="header.banner.precios" onclick="headerAuthAction()" style="font-size:12px;color:var(--gold);font-weight:600;display:none;cursor:pointer;">Iniciá sesión para ver los precios</span>
+<button class="logout-btn" id="header-auth-btn" onclick="headerAuthAction()" style="display:none;">Iniciar sesión</button>
  </div>
  </header>
 <div id="mapa-screen" style="display:none;">

@@ -201,12 +201,16 @@ function startApp(user){
 function updateHeaderAuthState(){
   const userSpan = document.getElementById('header-user');
   const btn = document.getElementById('header-auth-btn');
+  const banner = document.getElementById('banner-precios');
   if(currentUser){
     userSpan.textContent = currentUser.restaurant;
+    btn.style.display = 'inline';
     btn.textContent = t('header.logout');
+    if(banner) banner.style.display = 'none';
   }else{
     userSpan.textContent = '';
-    btn.textContent = t('header.login');
+    btn.style.display = 'none';
+    if(banner) banner.style.display = 'inline';
   }
 }
 
