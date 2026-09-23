@@ -125,6 +125,7 @@ const TRANSLATIONS = {
     'wa.fecha': 'Data:',
     'wa.footer': 'Ordine inviato dal catalogo web',
     'filter.reset': 'Azzera filtri',
+    'header.banner.precios': 'Accedi per vedere i prezzi',
   },
   es: {
     'auth.tab.login': 'Ingresar',
@@ -245,6 +246,7 @@ const TRANSLATIONS = {
     'wa.fecha': 'Fecha:',
     'wa.footer': 'Pedido enviado desde catálogo web',
     'filter.reset': 'Restablecer filtros',
+    'header.banner.precios': 'Iniciá sesión para ver los precios',
   },
   en: {
     'auth.tab.login': 'Sign in',
@@ -365,6 +367,7 @@ const TRANSLATIONS = {
     'wa.fecha': 'Date:',
     'wa.footer': 'Order sent from web catalog',
     'filter.reset': 'Reset filters',
+    'header.banner.precios': 'Sign in to see prices',
   }
 };
 
