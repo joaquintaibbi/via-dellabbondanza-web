@@ -168,7 +168,7 @@ const TRANSLATIONS = {
     'auth.label.cf': 'Codice Fiscale',
     'auth.placeholder.cf': 'RSSMRA85M01H501Z',
     'cart.nota.envio': 'El costo de envío se coordina directamente con nuestro equipo.',
-    ' mapa.titulo': 'Explorá las regiones',
+    'mapa.titulo': 'Explorá las regiones',
     'mapa.guia': 'Tocá una región para ver sus vinos',
     'mapa.vertodo': 'o mirá el catálogo completo',
     'mapa.elegir': 'Elegí una región',

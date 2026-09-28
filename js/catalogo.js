@@ -4,7 +4,7 @@
 // Depende de config.js.
 // ── MODO DEL CATÁLOGO ─────────────────────────────────────────────────────────
 // Vista (sin parámetro): sin carrito ni precios, con el banner de "iniciá sesión".
-// Pedido (?modo=pedido): comportamiento completo (login, precios y carrito).
+// Pedido (?modo=pedido): comportamiento completo (`login`, precios y carrito).
 const MODO_PEDIDO = new URLSearchParams(window.location.search).get('modo') === 'pedido';
 document.documentElement.classList.add(MODO_PEDIDO ? 'modo-pedido' : 'modo-vista');
 
