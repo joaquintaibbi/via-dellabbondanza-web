@@ -55,16 +55,16 @@ function renderDestacados(){
 let ordenPorContexto = {};
 
 const REGION_VALUE_TO_CONTEXTO = {
-  'mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael': 'mendoza',
-  'salta|cafayate|calchaqu': 'salta',
+  'mendoza|luján|perdriel|tupungato|gualtallary|uco|agrelo|consulta|violetas|chacayes|carlos|rafael|paraje altamira|luján de cuyo|valle de uco|mendoza-agrelo|san carlos|el cepillo|los chacayes|la consulta|mendoza - valle de uco': 'mendoza',
+  'salta|cafayate|calchaqu|calchaqui valley|valles calchaquíes|valle de cafayate|salta - cafayate': 'salta',
   'jujuy': 'jujuy',
   'neuquén|neuquen|chañar|chanar|añelo|rincon': 'neuquen',
-  'río negro|rio negro': 'rionegro',
-  'chubut': 'chubut',
+  'río negro|rio negro|patagonia - rio negro': 'rionegro',
+  'chubut|patagonia-chubut|sarmiento': 'chubut',
   'canelones|maldonado|montevideo|chapeu': 'uruguay',
-  'central|cachapoal|colchagua': 'chile',
+  'central|cachapoal|colchagua|valle central|valle de cachapoal|valle de colchagua': 'chile',
   'ararat|armavir': 'armenia',
-  'mallorca|ibiza|eivissa': 'espana',
+  'mallorca|ibiza|eivissa|tierra de mallorca|vino de la tierra de ibiza': 'espana',
   'yamanashi': 'japon',
   'francia': 'francia',
   'italia': 'italia',
