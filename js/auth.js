@@ -109,7 +109,6 @@ async function doRegister(){
   const razonsocial = document.getElementById('reg-razonsocial').value.trim();
   const address = document.getElementById('reg-address').value.trim();
   const city = document.getElementById('reg-city').value.trim();
-  const piva = document.getElementById('reg-piva').value.trim();
   const email = document.getElementById('reg-email').value.trim().toLowerCase();
   const phone = document.getElementById('reg-phone').value.trim();
   const pass = document.getElementById('reg-pass').value;
@@ -117,10 +116,19 @@ async function doRegister(){
   const suc = document.getElementById('reg-success');
   err.style.display='none'; suc.style.display='none';
 
+  const tipoDocumento = document.getElementById('reg-tipo-documento').value;
+  const piva = tipoDocumento === 'empresa'
+    ? document.getElementById('reg-piva').value.trim()
+    : document.getElementById('reg-cf').value.trim().toUpperCase();
+
   if(!restaurant||!razonsocial||!address||!city||!piva||!email||!phone||!pass){
     showErr(err,t('auth.err.campos')); return;
   }
-  if(!isValidPartitaIva(piva)){
+  if(tipoDocumento === 'empresa' && !isValidPartitaIva(piva)){
+    showErr(err,t('auth.err.piva'));
+    return;
+  }
+  if(tipoDocumento === 'particular' && !isValidCodiceFiscale(piva)){
     showErr(err,t('auth.err.piva'));
     return;
   }
@@ -144,13 +152,11 @@ async function doRegister(){
     const { sendEmailVerification } = window.firebaseAuthFns;
     sendEmailVerification(credential.user).catch(e => console.warn('No se pudo enviar el mail de verificación:', e));
 
-    const tipoDocumento = document.getElementById('reg-tipo-documento').value;
-const piva = tipoDocumento === 'empresa' ? document.getElementById('reg-piva').value.trim() : document.getElementById('reg-cf').value.trim().toUpperCase();
-const user = {restaurant,razonsocial,address,city,piva,email,phone,tipoDocumento};
+    const user = {restaurant,razonsocial,address,city,piva,email,phone,tipoDocumento};
 
     await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
 
- setSession({...user, uid});
+    setSession({...user, uid});
     startApp({...user, uid});
 
     if(pendingOrderAfterLogin){
