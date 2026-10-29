@@ -17,6 +17,9 @@ const selectEl = document.getElementById(`unidad-${id}`);
   if(!cart[key]) cart[key] = {wine, qty:0, esCaja, botellasPorUnidad: esCaja ? botellasPorCaja : 1};
   cart[key].qty++;
 
+  const itemGA = gaItem(wine, cart[key].botellasPorUnidad, 1);
+  trackEvent('add_to_cart', { currency:'EUR', value:itemGA.price, items:[itemGA] });
+
   updateCartUI();
   const btn = event.target;
   btn.textContent='✓';
@@ -105,6 +108,7 @@ function sendOrder(ventanaPreabierta){
   if(!items.length){ alert(t('cart.err.vacio')); return; }
 
   if(!currentUser){
+    trackEvent('pedido_sin_sesion', { items_en_carrito: items.length });
     pendingOrderAfterLogin = true;
     closeCart();
     openAuthModal();
@@ -139,6 +143,13 @@ ${lines}
 ${t('wa.fecha')} ${fecha}
 
 ${t('cart.nota.envio')}`;
+
+  trackEvent('enviar_pedido', {
+    currency: 'EUR',
+    value: Number(total.toFixed(2)),
+    cantidad_vinos: items.length,
+    items: items.map(item => gaItem(item.wine, item.botellasPorUnidad || 1, item.qty))
+  });
 
   const urlWA = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   if(ventanaPreabierta){

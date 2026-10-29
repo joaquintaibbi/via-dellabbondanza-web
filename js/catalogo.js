@@ -342,6 +342,9 @@ if(w['Botellas_Por_Caja'] && parseInt(w['Botellas_Por_Caja']) > 1){
 
   document.getElementById('wine-modal').classList.add('open');
   document.getElementById('modal-overlay').classList.add('open');
+
+  const itemGA = gaItem(w, 1, 1);
+  trackEvent('view_item', { currency:'EUR', value:itemGA.price, items:[itemGA] });
 }
 
 function closeWineModal(){

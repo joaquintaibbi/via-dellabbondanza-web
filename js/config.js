@@ -28,4 +28,26 @@ function getSession(){ return JSON.parse(localStorage.getItem('vda_session')||'n
 function setSession(u){ localStorage.setItem('vda_session', JSON.stringify(u)); }
 function clearSession(){ localStorage.removeItem('vda_session'); }
 
+// ── ANALYTICS ─────────────────────────────────────────────────────────────────
+// Manda un evento a Google Analytics (GA4). Si gtag no cargó (bloqueador de
+// anuncios, sin conexión), no hace nada y no rompe la página.
+function trackEvent(nombre, params){
+  try{
+    if(typeof gtag === 'function') gtag('event', nombre, params || {});
+  }catch(e){ /* nunca romper la web por una métrica */ }
+}
+
+// Arma el item de un vino con el formato de e-commerce de GA4.
+function gaItem(wine, botellas, qty){
+  return {
+    item_id: String(wine['ID']||''),
+    item_name: wine['Nombre']||'',
+    item_brand: wine['Bodega']||'',
+    item_category: wine['Tipo']||'',
+    item_variant: wine['Capacidad']||'',
+    price: parseFloat(wine['Precio (€)']||0) * (botellas||1),
+    quantity: qty||1
+  };
+}
+
  

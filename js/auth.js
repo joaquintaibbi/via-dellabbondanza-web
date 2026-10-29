@@ -39,6 +39,7 @@ async function doLogin(){
 
     const user = {...userDoc.data(), uid};
     setSession(user);
+    trackEvent('login', { method: 'email' });
     startApp(user);
 
     if(pendingOrderAfterLogin){
@@ -155,6 +156,7 @@ async function doRegister(){
     const user = {restaurant,razonsocial,address,city,piva,email,phone,tipoDocumento};
 
     await setDoc(doc(window.firebaseDb, 'usuarios', uid), user);
+    trackEvent('sign_up', { method: tipoDocumento });
 
     setSession({...user, uid});
     startApp({...user, uid});
